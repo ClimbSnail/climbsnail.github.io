@@ -8,17 +8,21 @@
   <meta name="baidu-site-verification" content="Gxxsqpe1yy" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>ClimbSnail</title>
+  <title>hexo+Github搭建个人静态博客 | ClimbSnail</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="蜗牛给自己造了个火箭">
-<meta property="og:type" content="website">
-<meta property="og:title" content="ClimbSnail">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="最后的效果可参考本人博客 概要介绍本文主要使用hexo搭建静态博客，并使用Github作为挂载点。 Hexo简介Hexo是一款基于Node.js的静态博客框架，依赖少易于安装使用，可以方便的生成静态网页托管在GitHub和Coding上，是搭建博客的首选框架。大家可以进入hexo官网进行详细查看，因为Hexo的创建者是台湾人，对中文的支持很友好，可以选择中文进行查看。 Github简介Github">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hexo+Github搭建个人静态博客">
+<meta property="og:url" content="http://yoursite.com/2019/hexo+Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/index.html">
 <meta property="og:site_name" content="ClimbSnail">
-<meta property="og:description" content="蜗牛给自己造了个火箭">
+<meta property="og:description" content="最后的效果可参考本人博客 概要介绍本文主要使用hexo搭建静态博客，并使用Github作为挂载点。 Hexo简介Hexo是一款基于Node.js的静态博客框架，依赖少易于安装使用，可以方便的生成静态网页托管在GitHub和Coding上，是搭建博客的首选框架。大家可以进入hexo官网进行详细查看，因为Hexo的创建者是台湾人，对中文的支持很友好，可以选择中文进行查看。 Github简介Github">
+<meta property="og:image" content="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Note/blog.jpg">
+<meta property="article:published_time" content="2019-06-06T00:18:12.000Z">
+<meta property="article:modified_time" content="2019-06-06T22:35:22.000Z">
 <meta property="article:author" content="ClimbSnail">
-<meta property="article:tag" content="ClimbSnail">
+<meta property="article:tag" content="静态博客搭建">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Note/blog.jpg">
   
     <link rel="alternative" href="/atom.xml" title="ClimbSnail" type="application/atom+xml">
   
@@ -170,591 +174,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-树莓派测试SPI接口" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-hexo+Github搭建个人静态博客" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/%E6%A0%91%E8%8E%93%E6%B4%BE%E6%B5%8B%E8%AF%95SPI%E6%8E%A5%E5%8F%A3/">树莓派测试SPI接口</a>
-    </h1>
-  
-
-        
-        <a href="/2020/%E6%A0%91%E8%8E%93%E6%B4%BE%E6%B5%8B%E8%AF%95SPI%E6%8E%A5%E5%8F%A3/" class="archive-article-date">
-  	<time datetime="2020-04-07T15:27:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment"> * SPI testing utility (using spidev driver) </span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * Copyright (c) 2007  MontaVista Software, Inc. </span></span><br><span class="line"><span class="comment"> * Copyright (c) 2007  Anton Vorontsov &lt;avorontsov@ru.mvista.com&gt; </span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * This program is free software; you can redistribute it and/or modify </span></span><br><span class="line"><span class="comment"> * it under the terms of the GNU General Public License as published by </span></span><br><span class="line"><span class="comment"> * the Free Software Foundation; either version 2 of the License. </span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * Cross-compile with cross-gcc -I/path/to/cross-kernel/include </span></span><br><span class="line"><span class="comment"> */</span>  </span><br><span class="line">  </span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdint.h&gt;  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;getopt.h&gt;  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/ioctl.h&gt;  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/types.h&gt;  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/spi/spidev.h&gt;  </span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ARRAY_SIZE(a) (sizeof(a)/sizeof((a)[0]))  </span></span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">pabort</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *s)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    perror(s);  </span><br><span class="line">    <span class="built_in">abort</span>();  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">教程</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/%E6%A0%91%E8%8E%93%E6%B4%BE%E6%B5%8B%E8%AF%95SPI%E6%8E%A5%E5%8F%A3/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Robot_For_RaspberryPi" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/Robot_For_RaspberryPi/">基于树莓派的多感知双足机器人</a>
-    </h1>
-  
-
-        
-        <a href="/2019/Robot_For_RaspberryPi/" class="archive-article-date">
-  	<time datetime="2019-10-06T08:53:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><em>You can also read a translated version of this file <a href="https://github.com/ClimbSnail/Robot_For_RaspberryPi/blob/master/README_English.md" target="_blank" rel="noopener">英文版 in English</a> or <a href="">in Korean 한국어</a>.</em></p>
-<p>项目来自我的本科毕业设计</p>
-<p>最早之前做过一版，由单片机离线控制的。可以先预览。</p>
-<p>Github项目<a href="https://github.com/ClimbSnail/Robot_For_RaspberryPi" target="_blank" rel="noopener">链接</a></p>
-<p>B站<a href="https://b23.tv/BV1qs411L7Pn" target="_blank" rel="noopener">视频</a> <a href="https://b23.tv/BV1qs411L7Pn" target="_blank" rel="noopener">https://b23.tv/BV1qs411L7Pn</a></p>
-<p>树莓派拓展板<a href="https://b23.tv/BV1zt411u7LR" target="_blank" rel="noopener">视频</a> <a href="https://b23.tv/BV1zt411u7LR" target="_blank" rel="noopener">https://b23.tv/BV1zt411u7LR</a></p>
-<iframe
-    src="//player.bilibili.com/player.html?aid=62017744&bvid=BV1zt411u7LR&cid=107821320&page=1"
-    scrolling="no"
-    width="800px"
-    height="600px"
-    border="0"
-    frameborder="no"
-    framespacing="0"
-    allowfullscreen="true"> 
-</iframe>
-
-
-<p>整个项目为一个软硬件结合的项目，提供整个电路工程文件以及相关功能的所有源代码。</p>
-<p>开发语言<code>C</code>、<code>C++</code>、<code>Python</code>、<code>C#</code>。</p>
-<h4 id="机器人设计思维结构图"><a href="#机器人设计思维结构图" class="headerlink" title="机器人设计思维结构图"></a>机器人设计思维结构图</h4><p><img src="https://github.com/ClimbSnail/Robot_For_RaspberryPi/blob/master/Image/RobotFrameDiagram_mini.png" alt="RobotFrameDiagram"></p>
-<p><img src="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Robot_For_RaspberryPi/RobotFrameDiagram_mini.png" alt="RobotFrameDiagram" title="RobotFrameDiagram_mini.png"></p>
-<!-- 
-<div align="center">
-<img src="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Robot_For_RaspberryPi/RobotFrameDiagram_mini.png"/>
-</div>
--->
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">项目</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/Robot_For_RaspberryPi/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-资源站点" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/%E8%B5%84%E6%BA%90%E7%AB%99%E7%82%B9/">资源站点</a>
-    </h1>
-  
-
-        
-        <a href="/2019/%E8%B5%84%E6%BA%90%E7%AB%99%E7%82%B9/" class="archive-article-date">
-  	<time datetime="2019-08-08T13:40:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="个人FTP资源站点"><a href="#个人FTP资源站点" class="headerlink" title="个人FTP资源站点"></a>个人FTP资源站点</h4><p>利用家中的NAS搭建的资源站点<a href="ftp://climbsnail:1121/">一键跳转</a>。</p>
-<blockquote>
-<p><a href="ftp://climbsnail:1121/">备用站点1</a></p>
-</blockquote>
-<blockquote>
-<p><a href="ftp://climbsnail:1121/">备用站点2</a></p>
-</blockquote>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">资源</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/%E8%B5%84%E6%BA%90%E7%AB%99%E7%82%B9/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-让搜索引擎收录博客" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/%E8%AE%A9%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%94%B6%E5%BD%95%E5%8D%9A%E5%AE%A2/">让搜索引擎收录博客</a>
-    </h1>
-  
-
-        
-        <a href="/2019/%E8%AE%A9%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%94%B6%E5%BD%95%E5%8D%9A%E5%AE%A2/" class="archive-article-date">
-  	<time datetime="2019-06-08T12:52:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="验证站点"><a href="#验证站点" class="headerlink" title="验证站点"></a>验证站点</h4><p>网站在没有提交搜索引擎收录之前，直接搜索你网站的内容是搜不到的，只有提交搜索引擎之后，搜索引擎才能收录你的站点，通过爬虫抓取你网站的东西，对于<code>hexo</code> 博客来说，如果你是部署在<code>GitHub Pages</code>，那么你是无法被百度收录的，因为<code>GitHub</code> 禁止了百度爬虫，最常见的解决办法是双线部署到<code>Coding Pages</code>和<code>GitHub Pages</code>，因为百度爬虫可以爬取到<code>Coding</code>上的内容，从而实现百度收录。另外百度收录的所需的时间较长，大约半个月左右才会看到效果！</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">静态博客搭建</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/%E8%AE%A9%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%94%B6%E5%BD%95%E5%8D%9A%E5%AE%A2/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-yilia主题添加Gitment评论插件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/yilia%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0Gitment%E8%AF%84%E8%AE%BA%E6%8F%92%E4%BB%B6/">yilia主题添加Gitment评论插件</a>
-    </h1>
-  
-
-        
-        <a href="/2019/yilia%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0Gitment%E8%AF%84%E8%AE%BA%E6%8F%92%E4%BB%B6/" class="archive-article-date">
-  	<time datetime="2019-06-06T08:53:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h5 id="Gitment评论插件的使用"><a href="#Gitment评论插件的使用" class="headerlink" title="Gitment评论插件的使用"></a>Gitment评论插件的使用</h5><ol>
-<li>Gitment模块<blockquote>
-<ul>
-<li>Gitment 是基于 GitHub Issues 的评论系统。</li>
-<li>支持在前端直接引入，不需要任何后端代码。</li>
-<li>可以在页面进行登录、查看、评论、点赞等操作.</li>
-<li>同时有完整的 Markdown / GFM 和代码高亮支持。</li>
-<li>尤为适合各种基于 GitHub Pages 的静态博客或项目页面。</li>
-<li>想了解具体效果，可以点击查看官方Demo Page：Gitment Demo。</li>
-</ul>
-</blockquote>
-</li>
-</ol>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">静态博客搭建</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/yilia%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0Gitment%E8%AF%84%E8%AE%BA%E6%8F%92%E4%BB%B6/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-yilia主题添加网易云音乐插件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/yilia%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E6%8F%92%E4%BB%B6/">yilia主题添加网易云音乐插件</a>
-    </h1>
-  
-
-        
-        <a href="/2019/yilia%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E6%8F%92%E4%BB%B6/" class="archive-article-date">
-  	<time datetime="2019-06-06T06:35:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h5 id="添加网易云音乐播放插件"><a href="#添加网易云音乐播放插件" class="headerlink" title="添加网易云音乐播放插件"></a>添加网易云音乐播放插件</h5><ol>
-<li>打开网易云音乐首页，复制选择的背景音乐分享外链</li>
-</ol>
-<p>在<a href="https://music.163.com/" target="_blank" rel="noopener">网易云音乐</a> 网页中选中想要使用的音乐，进入播放界面，点击<code>生成外链播放器</code>，这里由于版权问题，网易云音乐无法对有版权的音乐生成外链！！！<br><img src="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Note/wangyiyunyinyue.jpg" alt="生成外链播放器"><br>2. 引入播放器代码</p>
-<p>在themes/yilia/layout/_partial/left-col.ejs文件nav标签中添加如下代码，代码中id后的<code>1334445174</code>为默认音乐的id号</p>
-<p>将代码中的红色部分和刚刚复制的网易云外链代码进行对照，将对应部分进行替换（不替换的话使用的是 纸短情长 歌曲）</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 网易云音乐插件 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">%</span> <span class="attr">if</span> (<span class="attr">theme.music</span> &amp;&amp; <span class="attr">theme.music.enable</span>)&#123; %&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"position:absolute; bottom:120px left:auto; width:85%"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">iframe</span> <span class="attr">frameborder</span>=<span class="string">"no"</span> <span class="attr">border</span>=<span class="string">"0"</span> <span class="attr">marginwidth</span>=<span class="string">"0"</span> <span class="attr">marginheight</span>=<span class="string">"0"</span> <span class="attr">width</span>=<span class="string">"240"</span> <span class="attr">height</span>=<span class="string">"52"</span> <span class="attr">src</span>=<span class="string">"//music.163.com/outchain/player?type=2&amp;id=&lt;%=theme.music.id||1433584979%&gt;&amp;auto=&lt;%=theme.music.autoplay?1:0%&gt;&amp;height=32"</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">%</span> &#125; %&gt;</span></span><br></pre></td></tr></table></figure>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">静态博客搭建</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/yilia%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E6%8F%92%E4%BB%B6/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Hexo安装配置yilia主题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/Hexo%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEyilia%E4%B8%BB%E9%A2%98/">Hexo安装配置yilia主题</a>
-    </h1>
-  
-
-        
-        <a href="/2019/Hexo%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEyilia%E4%B8%BB%E9%A2%98/" class="archive-article-date">
-  	<time datetime="2019-06-06T02:13:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>最后的效果可参考<a href="https://climbsnail.github.io" target="_blank" rel="noopener">本人博客</a><br><img src="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Note/blog.jpg" alt="hexo静态博客"></p>
-<h2 id="高级玩法之更换hexo主题"><a href="#高级玩法之更换hexo主题" class="headerlink" title="高级玩法之更换hexo主题"></a>高级玩法之更换hexo主题</h2><h5 id="使用hexo-theme-yilia主题"><a href="#使用hexo-theme-yilia主题" class="headerlink" title="使用hexo-theme-yilia主题"></a>使用hexo-theme-yilia主题</h5><ol>
-<li>在命令行中确保在本博客的根目录下，输入以下命令。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/litten/hexo-theme-yilia.git themes/yilia</span><br><span class="line"><span class="comment"># 注：themes/yilia意为将本次下载下来的yilia主题放在themes目录下</span></span><br></pre></td></tr></table></figure></li>
-<li>修改本博客根目录的<code>_config.yml</code>文件中的<code>theme</code>字段的参数，更改为<code>yilia</code>。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">theme: yilia</span><br></pre></td></tr></table></figure></li>
-<li>部分配置项介绍<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">favicon 为网页打开后的标签图标</span><br><span class="line">avatar  为网页主页的个人图标</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">静态博客搭建</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/Hexo%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEyilia%E4%B8%BB%E9%A2%98/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hexo+Github搭建个人静态博客" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/hexo+Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/">hexo+Github搭建个人静态博客</a>
+    <h1 class="article-title" itemprop="name">
+      hexo+Github搭建个人静态博客
     </h1>
   
 
@@ -779,90 +206,91 @@
 <li>配置hexo</li>
 <li>测试</li>
 </ol>
-        
-      
+<a id="more"></a>
 
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">静态博客搭建</a>
-        		</li>
-      		
-		</ul>
-	</div>
+<br>
+<br>
+<br>
+<br>
 
-      
+<hr>
+<h2 id="详细搭建过程"><a href="#详细搭建过程" class="headerlink" title="详细搭建过程"></a>详细搭建过程</h2><h5 id="安装Git工具"><a href="#安装Git工具" class="headerlink" title="安装Git工具"></a>安装Git工具</h5><p>linux使用<code>sudo apt-get install git</code>安装git管理工具</p>
+<p>windows访问<a href="https://git-scm.com/downloads" target="_blank" rel="noopener">Git官网</a>下载合适系统的git版本并安装。</p>
+<h5 id="安装nodejs"><a href="#安装nodejs" class="headerlink" title="安装nodejs"></a>安装nodejs</h5><p>linux使用<code>sudo apt-get install nodejs</code>安装nodejs</p>
+<p>windows访问<a href="http://nodejs.cn/" target="_blank" rel="noopener">Nodejs官网</a>下载合适系统的版本并安装。</p>
+<p>以上操作结束，可使用<code>node -v</code>来检查Nodejs是否安装成功。</p>
+<h5 id="npm安装、cnpm安装"><a href="#npm安装、cnpm安装" class="headerlink" title="npm安装、cnpm安装"></a>npm安装、cnpm安装</h5><p>linux使用<code>sudo apt-get install npm</code>安装npm</p>
+<p>windows <code>cmd</code>中直接执行下面命令(确保上面已经安装过Nodejs)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npm install -g cnpm --registry.npm.taobao.org</span><br><span class="line"># 安装无误后进行下面的hexo安装</span><br><span class="line">cnpm install -g hexo-cli</span><br><span class="line"></span><br><span class="line">hexo -v # 来验证下hexo是否安装成功</span><br></pre></td></tr></table></figure>
 
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/hexo+Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/">展开全文 >></a>
-        </p>
-      
+<h5 id="初始化配置hexo"><a href="#初始化配置hexo" class="headerlink" title="初始化配置hexo"></a>初始化配置hexo</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init blog # 命令格式为hexo init [目录名]</span><br></pre></td></tr></table></figure>
+<p>添加了目录名这个选项，就会默认在当前页面创建目录并初始化。若不加用户名，则会在当前目录下初始化。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">配置hexo的_config.yml文件</span><br><span class="line"></span><br><span class="line">subtitle: 添加你的个签</span><br><span class="line">keywords: 添加你网站的关键字</span><br><span class="line">permalink 配置项指定了文章生成的结构，默认会以年月日的多层结构生成文件夹结构。</span><br><span class="line">多层目录结构影响了怕从程序的搜索，故简易目录结构越短越好，建议permalink如下配置</span><br><span class="line">permalink: :title&#x2F;  # 只保留一层结构，即目录下直接单个文章名</span><br></pre></td></tr></table></figure>
 
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
+<h5 id="启动hexo服务程序测试"><a href="#启动hexo服务程序测试" class="headerlink" title="启动hexo服务程序测试"></a>启动hexo服务程序测试</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br><span class="line">或者</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+<p>会启动hexo本地服务，通过<a href="http://localhost:4000就能访问预览。">http://localhost:4000就能访问预览。</a><br>    浏览器访问上面的网址(打不开，可以更换浏览器再试试)</p>
+<h5 id="创建一篇文章"><a href="#创建一篇文章" class="headerlink" title="创建一篇文章"></a>创建一篇文章</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo n "我的第一篇文章"</span><br></pre></td></tr></table></figure>
+<p>文章创建完默认存放在<code>source\_posts</code>目录下。可以使用vi或者其他的记事本工具编写文件（文章默认后缀.md）。</p>
+<h5 id="编写完后发布"><a href="#编写完后发布" class="headerlink" title="编写完后发布"></a>编写完后发布</h5><p>顺序执行以下命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo clean # 清理</span><br><span class="line">hexo g # 重新生成</span><br></pre></td></tr></table></figure>
+<p>再次使用<code>hexo s</code>启动运行hexo本地服务。到此为止已经成功搭建了基于本地的hexo个人博客。</p>
+<br>
+<br>
+<br>
+<br>
 
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-搭建个人静态博客" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/">Hexo搭建博客系列教程</a>
-    </h1>
-  
-
-        
-        <a href="/2019/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/" class="archive-article-date">
-  	<time datetime="2019-06-05T23:18:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="Hexo搭建博客系列教程"><a href="#Hexo搭建博客系列教程" class="headerlink" title="Hexo搭建博客系列教程"></a>Hexo搭建博客系列教程</h4><ol>
+<hr>
+<h3 id="部署到github仓库"><a href="#部署到github仓库" class="headerlink" title="部署到github仓库"></a>部署到github仓库</h3><p>确认本地服务搭建成功后，就来部署到github远端仓库，这样就可以公网访问我们的静态博客了。</p>
+<h5 id="申请一个github账号"><a href="#申请一个github账号" class="headerlink" title="申请一个github账号"></a>申请一个github账号</h5><p>此步骤操作有疑问，请参考百度、谷歌。</p>
+<h5 id="通过我们的github账号创建一个仓库"><a href="#通过我们的github账号创建一个仓库" class="headerlink" title="通过我们的github账号创建一个仓库"></a>通过我们的github账号创建一个仓库</h5><p>github的hexo仓库名一定要是 <code>github用户名.github.io</code>，否则之后会报错。<br>接下来的命令全都在hexo初始化的根目录进行。</p>
+<h5 id="本地安装hexo的git部署插件"><a href="#本地安装hexo的git部署插件" class="headerlink" title="本地安装hexo的git部署插件"></a>本地安装hexo的git部署插件</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cnpm install --save hexo-deployer-git</span><br><span class="line">或者使用以下命令</span><br><span class="line">cnpm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+<h5 id="修改hexo配置"><a href="#修改hexo配置" class="headerlink" title="修改hexo配置"></a>修改hexo配置</h5><p>如下，需要配置<code>deploy</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: 'git'</span><br><span class="line">  repo: https://github.com/你的git用户名/你的git用户名.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+<h5 id="部署到远端"><a href="#部署到远端" class="headerlink" title="部署到远端"></a>部署到远端</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+<p>过程中会让输入github账号与密码两个步骤</p>
+<h5 id="可以刷新github对应仓库的页面，可以看到内容已经到github上了。"><a href="#可以刷新github对应仓库的页面，可以看到内容已经到github上了。" class="headerlink" title="可以刷新github对应仓库的页面，可以看到内容已经到github上了。"></a>可以刷新github对应仓库的页面，可以看到内容已经到github上了。</h5><p>实际上hexo只有网页相关的数据(<code>public</code>文件夹下的内容)会同步到github对应的仓库中。</p>
+<p>通过访问<a href="https://climbsnail.github.io" target="_blank" rel="noopener">https://climbsnail.github.io</a>就可以访问我们的博客了。</p>
+<h4 id="Hexo搭建博客系列教程"><a href="#Hexo搭建博客系列教程" class="headerlink" title="Hexo搭建博客系列教程"></a>Hexo搭建博客系列教程</h4><ol>
 <li>Hexo搭建博客系列教程1__<a href="../hexo+Github搭建个人静态博客">hexo+Github搭建个人静态博客</a></li>
 <li>Hexo搭建博客系列教程2__<a href="../Hexo安装配置yilia主题">Hexo安装配置yilia主题</a></li>
 <li>Hexo搭建博客系列教程3__<a href="../yilia主题添加网易云音乐插件">yilia主题添加网易云音乐插件</a></li>
 <li>Hexo搭建博客系列教程4__<a href="../yilia主题添加Gitment评论插件题">yilia主题添加Gitment评论插件</a></li>
 <li>Hexo搭建博客系列教程5__<a href="../让搜索引擎收录博客">让搜索引擎收录博客</a></li>
 </ol>
-<p>最后的效果可参考<a href="https://climbsnail.github.io" target="_blank" rel="noopener">本人博客</a><br><img src="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Note/blog.jpg" alt="hexo静态博客"></p>
 
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Note/zhifubao_collection.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Note/weixin_collection.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -882,16 +310,84 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/hexo+Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2019/Hexo%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEyilia%E4%B8%BB%E9%A2%98/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Hexo安装配置yilia主题
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hexo搭建博客系列教程</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -906,91 +402,48 @@
         </div>
         
         
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-大力开山" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/%E5%A4%A7%E5%8A%9B%E5%BC%80%E5%B1%B1/">大家好，自我介绍一下。</a>
-    </h1>
-  
-
-        
-        <a href="/2019/%E5%A4%A7%E5%8A%9B%E5%BC%80%E5%B1%B1/" class="archive-article-date">
-  	<time datetime="2019-06-05T22:48:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="开篇"><a href="#开篇" class="headerlink" title="开篇"></a>开篇</h3><p>今天起，开始长期维护这个小博客了。</p>
-<h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><ol>
-<li>记录个人学习技术过程中的心得。</li>
-<li>分享我是如何给自己挖坑，并偷别人填坑的材料来填自己的坑。</li>
-</ol>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/%E5%A4%A7%E5%8A%9B%E5%BC%80%E5%B1%B1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#概要介绍"><span class="toc-number">1.</span> <span class="toc-text">概要介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Hexo简介"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">Hexo简介</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Github简介"><span class="toc-number">1.0.0.2.</span> <span class="toc-text">Github简介</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#搭建步骤"><span class="toc-number">2.</span> <span class="toc-text">搭建步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#详细搭建过程"><span class="toc-number">3.</span> <span class="toc-text">详细搭建过程</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#安装Git工具"><span class="toc-number">3.0.0.1.</span> <span class="toc-text">安装Git工具</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#安装nodejs"><span class="toc-number">3.0.0.2.</span> <span class="toc-text">安装nodejs</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#npm安装、cnpm安装"><span class="toc-number">3.0.0.3.</span> <span class="toc-text">npm安装、cnpm安装</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#初始化配置hexo"><span class="toc-number">3.0.0.4.</span> <span class="toc-text">初始化配置hexo</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#启动hexo服务程序测试"><span class="toc-number">3.0.0.5.</span> <span class="toc-text">启动hexo服务程序测试</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#创建一篇文章"><span class="toc-number">3.0.0.6.</span> <span class="toc-text">创建一篇文章</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#编写完后发布"><span class="toc-number">3.0.0.7.</span> <span class="toc-text">编写完后发布</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#部署到github仓库"><span class="toc-number">3.1.</span> <span class="toc-text">部署到github仓库</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#申请一个github账号"><span class="toc-number">3.1.0.1.</span> <span class="toc-text">申请一个github账号</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#通过我们的github账号创建一个仓库"><span class="toc-number">3.1.0.2.</span> <span class="toc-text">通过我们的github账号创建一个仓库</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#本地安装hexo的git部署插件"><span class="toc-number">3.1.0.3.</span> <span class="toc-text">本地安装hexo的git部署插件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#修改hexo配置"><span class="toc-number">3.1.0.4.</span> <span class="toc-text">修改hexo配置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#部署到远端"><span class="toc-number">3.1.0.5.</span> <span class="toc-text">部署到远端</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#可以刷新github对应仓库的页面，可以看到内容已经到github上了。"><span class="toc-number">3.1.0.6.</span> <span class="toc-text">可以刷新github对应仓库的页面，可以看到内容已经到github上了。</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Hexo搭建博客系列教程"><span class="toc-number">3.1.1.</span> <span class="toc-text">Hexo搭建博客系列教程</span></a></li></ol></li></ol></li></ol>
+                    </div>
+                </span>
             </div>
         </div>
         
-        
     </div>
 </aside>
 
 
 
+  
+  
+  
 
   
+
+  
+
+  
+  <div id="gitment-ctn"></div> 
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: "http://yoursite.com/2019/hexo+Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/",
+  owner: 'ClimbSnail',
+  repo: 'Gitment',
+  oauth: {
+    client_id: 'f4b3ff80a25d18d4114d',
+    client_secret: '5be54b4a6b455885f030974b0432a18292f50933',
+  },
+})
+gitment.render('gitment-ctn')
+</script>
   
 
 
@@ -1012,8 +465,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

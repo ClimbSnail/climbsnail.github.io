@@ -234,16 +234,11 @@
 <p><img src="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Note/OrangePi_ZeroPlus_P1.jpg" alt="板子侧面图"></p>
 <p>后期，我对其进行压力测试，在只跑满两个核心的情况下，五分钟CPU的温度就上到了85度以上，但到达90以上时，就已经开始降频到1Ghz以下了。所以，在没有足够好的散热情况下，不建议将主频调制1.2/1.3Ghz。</p>
 <h4 id="cpu调节器-governor"><a href="#cpu调节器-governor" class="headerlink" title="cpu调节器(governor)"></a><a id="调节器">cpu调节器(governor)</a></h4><ol>
-<li><p>performance：将CPU频率固定工作在其支持的最高运行频率上，不动态调节，可以获取到最大的性能。</p>
-</li>
-<li><p>powersave: 将 CPU 频率设置为最低的所谓 “省电” 模式，CPU 会固定工作在其支持的最低运行频率上。因此这两种 governors 都属于静态 governor，即在使用它们时 CPU 的运行频率不会根据系统运行时负载的变化动态作出调整。这两种 governors 对应的是两种极端的应用场景，使用 performance governor 是对系统高性能的最大追求，而使用 powersave governor 则是对系统低功耗的最大追求。</p>
-</li>
-<li><p>Userspace：最早的 cpufreq 子系统通过 userspace governor 为用户提供了这种灵活性。系统将变频策略的决策权交给了用户态应用程序，并提供了相应的接口供用户态应用程序调节 CPU 运行频率使用。</p>
-</li>
-<li><p>ondemand：按需快速动态调整 CPU 频率， 一有 cpu 计算量的任务，就会立即达到最大频率运行，等执行完毕就立即回到最低频率；ondemand：userspace 是内核态的检测，用户态调整，效率低。</p>
-</li>
-<li><p>conservative: 与 ondemand 不同，平滑地调整 CPU 频率，频率的升降是渐变式的, 会自动在频率上下限调整，和 ondemand 的区别在于它会按需分配频率，而不是一味追求最高频率;</p>
-</li>
+<li>performance：将CPU频率固定工作在其支持的最高运行频率上，不动态调节，可以获取到最大的性能。</li>
+<li>powersave: 将 CPU 频率设置为最低的所谓 “省电” 模式，CPU 会固定工作在其支持的最低运行频率上。因此这两种 governors 都属于静态 governor，即在使用它们时 CPU 的运行频率不会根据系统运行时负载的变化动态作出调整。这两种 governors 对应的是两种极端的应用场景，使用 performance governor 是对系统高性能的最大追求，而使用 powersave governor 则是对系统低功耗的最大追求。</li>
+<li>Userspace：最早的 cpufreq 子系统通过 userspace governor 为用户提供了这种灵活性。系统将变频策略的决策权交给了用户态应用程序，并提供了相应的接口供用户态应用程序调节 CPU 运行频率使用。</li>
+<li>ondemand：按需快速动态调整 CPU 频率， 一有 cpu 计算量的任务，就会立即达到最大频率运行，等执行完毕就立即回到最低频率；ondemand：userspace 是内核态的检测，用户态调整，效率低。</li>
+<li>conservative: 与 ondemand 不同，平滑地调整 CPU 频率，频率的升降是渐变式的, 会自动在频率上下限调整，和 ondemand 的区别在于它会按需分配频率，而不是一味追求最高频率;</li>
 </ol>
 <h3 id="致谢"><a href="#致谢" class="headerlink" title="致谢"></a>致谢</h3><p>感谢帮助最大的讨论: <a href="https://forum.armbian.com/topic/11967-orange-pi-zero-plus-cpu-frequency-problem/" target="_blank" rel="noopener">https://forum.armbian.com/topic/11967-orange-pi-zero-plus-cpu-frequency-problem/</a></p>
 
@@ -516,6 +511,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">硬件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">静态博客搭建</a>
               </li>
              
@@ -524,15 +523,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">硬件</a>
+                <a href="javascript:void(0)" class="js-tag color3">教程</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">教程</a>
               </li>
              
               <li class="article-tag-list-item">

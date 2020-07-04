@@ -172,28 +172,131 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-树莓派测试SPI接口" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-OrangePi_Zero_Plus修改CPU频率" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/%E6%A0%91%E8%8E%93%E6%B4%BE%E6%B5%8B%E8%AF%95SPI%E6%8E%A5%E5%8F%A3/">树莓派测试SPI接口</a>
+      <a class="article-title" href="/2020/OrangePi_Zero_Plus%E4%BF%AE%E6%94%B9CPU%E9%A2%91%E7%8E%87/">香橙派 OrangePi Zero plus主频1.3Ghz启动失败</a>
     </h1>
   
 
         
-        <a href="/2020/%E6%A0%91%E8%8E%93%E6%B4%BE%E6%B5%8B%E8%AF%95SPI%E6%8E%A5%E5%8F%A3/" class="archive-article-date">
-  	<time datetime="2020-04-07T15:27:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
+        <a href="/2020/OrangePi_Zero_Plus%E4%BF%AE%E6%94%B9CPU%E9%A2%91%E7%8E%87/" class="archive-article-date">
+  	<time datetime="2020-07-01T06:35:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-01</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment"> * SPI testing utility (using spidev driver) </span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * Copyright (c) 2007  MontaVista Software, Inc. </span></span><br><span class="line"><span class="comment"> * Copyright (c) 2007  Anton Vorontsov &lt;avorontsov@ru.mvista.com&gt; </span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * This program is free software; you can redistribute it and/or modify </span></span><br><span class="line"><span class="comment"> * it under the terms of the GNU General Public License as published by </span></span><br><span class="line"><span class="comment"> * the Free Software Foundation; either version 2 of the License. </span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * Cross-compile with cross-gcc -I/path/to/cross-kernel/include </span></span><br><span class="line"><span class="comment"> */</span>  </span><br><span class="line">  </span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdint.h&gt;  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;getopt.h&gt;  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/ioctl.h&gt;  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/types.h&gt;  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/spi/spidev.h&gt;  </span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ARRAY_SIZE(a) (sizeof(a)/sizeof((a)[0]))  </span></span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">pabort</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *s)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    perror(s);  </span><br><span class="line">    <span class="built_in">abort</span>();  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h4 id="简要介绍"><a href="#简要介绍" class="headerlink" title="简要介绍"></a>简要介绍</h4><p>硬件方面OrangePi Zero plus使用的是全志H5芯片。四核A53芯片。</p>
+<p>使用的系统是<a href="https://www.armbian.com/orange-pi-zero-plus/" target="_blank" rel="noopener">armbian</a>，刷完系统，开机默认运行最高的频率为1008Mhz。</p>
+<p>七七八八装了很多软件以及配置了相关的环境。</p>
+<p>由于了解到全志H5芯片是可以工作在1.3Ghz的主频上。所以接着就想调节到更高的性能，调节过程中由于主频不适配硬件，导致启动失败。</p>
         
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">硬件</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/OrangePi_Zero_Plus%E4%BF%AE%E6%94%B9CPU%E9%A2%91%E7%8E%87/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-安卓系统修改钉钉定位" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/%E5%AE%89%E5%8D%93%E7%B3%BB%E7%BB%9F%E4%BF%AE%E6%94%B9%E9%92%89%E9%92%89%E5%AE%9A%E4%BD%8D/">安卓系统修改钉钉定位</a>
+    </h1>
+  
+
+        
+        <a href="/2020/%E5%AE%89%E5%8D%93%E7%B3%BB%E7%BB%9F%E4%BF%AE%E6%94%B9%E9%92%89%E9%92%89%E5%AE%9A%E4%BD%8D/" class="archive-article-date">
+  	<time datetime="2020-06-07T06:12:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Note/dingdingd.jpg" alt="钉钉图标"></p>
+<h5 id="全过程无需root！！！"><a href="#全过程无需root！！！" class="headerlink" title="全过程无需root！！！"></a><em>全过程无需root！！！</em></h5><p>简单介绍以下方法，通过将钉钉内置到虚拟环境中，再使用钉钉助手修改定位信息。</p>
+<p>修改定位需要用到以下三款软件。</p>
+<ol>
+<li><a href="https://taichi.cool/zh/" target="_blank" rel="noopener">太极</a>框架。点击下载<a href="https://taichi.cool/zh/download.html" target="_blank" rel="noopener">太极APP</a><blockquote>
+<p>如失效请使用<a href="https://github.com/taichi-framework/TaiChi/releases" target="_blank" rel="noopener">备用连接</a></p>
+</blockquote>
+</li>
+<li>钉钉助手。点击下载<a href="./taichi_6.2.1-release.apk">钉钉助手v1.2.8</a><blockquote>
+<p>如失效请使用<a href="https://taichi.cool/zh/module/" target="_blank" rel="noopener">备用连接</a>中找到<code>钉钉助手</code></p>
+</blockquote>
+</li>
+<li>指定版本的钉钉。点击下载<a href="./dingding4.7.16.apk">钉钉v4.7.16</a><blockquote>
+<p>如失效请使用<a href="">备用连接</a></p>
+</blockquote>
+</li>
+</ol>
+<p>注意：<code>钉钉</code>的版本只能使用<code>钉钉助手</code>中说明的适配版本。</p>
+<h5 id="具体教程请观看视频"><a href="#具体教程请观看视频" class="headerlink" title="具体教程请观看视频"></a>具体教程请观看视频</h5><iframe
+    src=""
+    scrolling="no"
+    width="800px"
+    height="600px"
+    border="0"
+    frameborder="no"
+    framespacing="0"
+    allowfullscreen="true"> 
+</iframe>
       
 
       
@@ -216,7 +319,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/%E6%A0%91%E8%8E%93%E6%B4%BE%E6%B5%8B%E8%AF%95SPI%E6%8E%A5%E5%8F%A3/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/%E5%AE%89%E5%8D%93%E7%B3%BB%E7%BB%9F%E4%BF%AE%E6%94%B9%E9%92%89%E9%92%89%E5%AE%9A%E4%BD%8D/">展开全文 >></a>
         </p>
       
 
@@ -346,6 +449,252 @@
 
 
   
+    <article id="post-我的大学四年" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/%E6%88%91%E7%9A%84%E5%A4%A7%E5%AD%A6%E5%9B%9B%E5%B9%B4/">我的大学四年</a>
+    </h1>
+  
+
+        
+        <a href="/2019/%E6%88%91%E7%9A%84%E5%A4%A7%E5%AD%A6%E5%9B%9B%E5%B9%B4/" class="archive-article-date">
+  	<time datetime="2019-06-28T02:02:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>四年，累过、笑过。<br><br>说不尽的遗憾，道不完的收获。<br><br>很幸运认识了大家，一个又一个集体。<br><br>大家都准研究生了，就一个最次的我要工作了。<br><br>就想说“gou富贵 勿相忘”<br><br>现在总算走了，寝室第一个离开的。<br><br>刚刚室友们集体催的“何琦 快走快走，快滚快滚”，我记住了。<br><br>好久没去523了，也好久没有在518 516一起拼凳子睡。<br><br>毕业了，很伤感。<br><br>怀念516进门的第二排的那个座，坐着不再是我。<br><br>再见了，工程训练中心518 516<br> 512、五号楼523、M座M411，再见了辽宁科技大学。再见了学生时代。<br><br>最后一个句号。<br></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/%E6%88%91%E7%9A%84%E5%A4%A7%E5%AD%A6%E5%9B%9B%E5%B9%B4/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Gitee免费图床搭建以及PicGo的使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/Gitee%E5%85%8D%E8%B4%B9%E5%9B%BE%E5%BA%8A%E6%90%AD%E5%BB%BA%E4%BB%A5%E5%8F%8APicGo%E7%9A%84%E4%BD%BF%E7%94%A8/">Gitee免费图床搭建以及PicGo的使用</a>
+    </h1>
+  
+
+        
+        <a href="/2019/Gitee%E5%85%8D%E8%B4%B9%E5%9B%BE%E5%BA%8A%E6%90%AD%E5%BB%BA%E4%BB%A5%E5%8F%8APicGo%E7%9A%84%E4%BD%BF%E7%94%A8/" class="archive-article-date">
+  	<time datetime="2019-06-01T18:58:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-02</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="具体教程请观看视频"><a href="#具体教程请观看视频" class="headerlink" title="具体教程请观看视频"></a>具体教程请观看视频</h5><iframe
+    src="//player.bilibili.com/player.html?aid=370978544&bvid=BV1GZ4y1H7cx&cid=197746055&page=1"
+    scrolling="no"
+    width="800px"
+    height="600px"
+    border="0"
+    frameborder="no"
+    framespacing="0"
+    allowfullscreen="true"> 
+</iframe>
+
+<h5 id="相关下载"><a href="#相关下载" class="headerlink" title="相关下载"></a>相关下载</h5><ol>
+<li><p>PicGo客户端下载地址：<a href="https://github.com/Molunerfinn/PicGo" target="_blank" rel="noopener">https://github.com/Molunerfinn/PicGo</a></p>
+</li>
+<li><p>码云地址：<a href="https://gitee.com/" target="_blank" rel="noopener">https://gitee.com/</a></p>
+</li>
+<li><p>图片压缩平台：</p>
+<blockquote>
+<p><a href="https://www.yasuotu.com/" target="_blank" rel="noopener">https://www.yasuotu.com/</a></p>
+</blockquote>
+<blockquote>
+<p><a href="https://tinypng.com/" target="_blank" rel="noopener">https://tinypng.com/</a></p>
+</blockquote>
+</li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">静态博客搭建</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/Gitee%E5%85%8D%E8%B4%B9%E5%9B%BE%E5%BA%8A%E6%90%AD%E5%BB%BA%E4%BB%A5%E5%8F%8APicGo%E7%9A%84%E4%BD%BF%E7%94%A8/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-树莓派测试SPI接口" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/%E6%A0%91%E8%8E%93%E6%B4%BE%E6%B5%8B%E8%AF%95SPI%E6%8E%A5%E5%8F%A3/">树莓派测试SPI接口</a>
+    </h1>
+  
+
+        
+        <a href="/2019/%E6%A0%91%E8%8E%93%E6%B4%BE%E6%B5%8B%E8%AF%95SPI%E6%8E%A5%E5%8F%A3/" class="archive-article-date">
+  	<time datetime="2019-04-07T15:27:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment"> * SPI testing utility (using spidev driver) </span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * Copyright (c) 2007  MontaVista Software, Inc. </span></span><br><span class="line"><span class="comment"> * Copyright (c) 2007  Anton Vorontsov &lt;avorontsov@ru.mvista.com&gt; </span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * This program is free software; you can redistribute it and/or modify </span></span><br><span class="line"><span class="comment"> * it under the terms of the GNU General Public License as published by </span></span><br><span class="line"><span class="comment"> * the Free Software Foundation; either version 2 of the License. </span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * Cross-compile with cross-gcc -I/path/to/cross-kernel/include </span></span><br><span class="line"><span class="comment"> */</span>  </span><br><span class="line">  </span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdint.h&gt;  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;getopt.h&gt;  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/ioctl.h&gt;  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/types.h&gt;  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/spi/spidev.h&gt;  </span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ARRAY_SIZE(a) (sizeof(a)/sizeof((a)[0]))  </span></span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">pabort</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *s)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    perror(s);  </span><br><span class="line">    <span class="built_in">abort</span>();  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">教程</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/%E6%A0%91%E8%8E%93%E6%B4%BE%E6%B5%8B%E8%AF%95SPI%E6%8E%A5%E5%8F%A3/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-资源站点" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -353,13 +702,13 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/%E8%B5%84%E6%BA%90%E7%AB%99%E7%82%B9/">资源站点</a>
+      <a class="article-title" href="/2018/%E8%B5%84%E6%BA%90%E7%AB%99%E7%82%B9/">资源站点</a>
     </h1>
   
 
         
-        <a href="/2019/%E8%B5%84%E6%BA%90%E7%AB%99%E7%82%B9/" class="archive-article-date">
-  	<time datetime="2019-08-08T13:40:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-08</time>
+        <a href="/2018/%E8%B5%84%E6%BA%90%E7%AB%99%E7%82%B9/" class="archive-article-date">
+  	<time datetime="2018-08-08T13:40:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-08</time>
 </a>
         
       </header>
@@ -396,7 +745,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/%E8%B5%84%E6%BA%90%E7%AB%99%E7%82%B9/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/%E8%B5%84%E6%BA%90%E7%AB%99%E7%82%B9/">展开全文 >></a>
         </p>
       
 
@@ -433,13 +782,13 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/%E8%AE%A9%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%94%B6%E5%BD%95%E5%8D%9A%E5%AE%A2/">让搜索引擎收录博客</a>
+      <a class="article-title" href="/2018/%E8%AE%A9%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%94%B6%E5%BD%95%E5%8D%9A%E5%AE%A2/">让搜索引擎收录博客</a>
     </h1>
   
 
         
-        <a href="/2019/%E8%AE%A9%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%94%B6%E5%BD%95%E5%8D%9A%E5%AE%A2/" class="archive-article-date">
-  	<time datetime="2019-06-08T12:52:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-08</time>
+        <a href="/2018/%E8%AE%A9%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%94%B6%E5%BD%95%E5%8D%9A%E5%AE%A2/" class="archive-article-date">
+  	<time datetime="2018-06-08T12:52:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-08</time>
 </a>
         
       </header>
@@ -470,7 +819,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/%E8%AE%A9%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%94%B6%E5%BD%95%E5%8D%9A%E5%AE%A2/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/%E8%AE%A9%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%94%B6%E5%BD%95%E5%8D%9A%E5%AE%A2/">展开全文 >></a>
         </p>
       
 
@@ -507,13 +856,13 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/yilia%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0Gitment%E8%AF%84%E8%AE%BA%E6%8F%92%E4%BB%B6/">yilia主题添加Gitment评论插件</a>
+      <a class="article-title" href="/2018/yilia%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0Gitment%E8%AF%84%E8%AE%BA%E6%8F%92%E4%BB%B6/">yilia主题添加Gitment评论插件</a>
     </h1>
   
 
         
-        <a href="/2019/yilia%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0Gitment%E8%AF%84%E8%AE%BA%E6%8F%92%E4%BB%B6/" class="archive-article-date">
-  	<time datetime="2019-06-06T08:53:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-06</time>
+        <a href="/2018/yilia%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0Gitment%E8%AF%84%E8%AE%BA%E6%8F%92%E4%BB%B6/" class="archive-article-date">
+  	<time datetime="2018-06-06T08:53:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-06</time>
 </a>
         
       </header>
@@ -556,7 +905,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/yilia%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0Gitment%E8%AF%84%E8%AE%BA%E6%8F%92%E4%BB%B6/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/yilia%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0Gitment%E8%AF%84%E8%AE%BA%E6%8F%92%E4%BB%B6/">展开全文 >></a>
         </p>
       
 
@@ -593,13 +942,13 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/yilia%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E6%8F%92%E4%BB%B6/">yilia主题添加网易云音乐插件</a>
+      <a class="article-title" href="/2018/yilia%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E6%8F%92%E4%BB%B6/">yilia主题添加网易云音乐插件</a>
     </h1>
   
 
         
-        <a href="/2019/yilia%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E6%8F%92%E4%BB%B6/" class="archive-article-date">
-  	<time datetime="2019-06-06T06:35:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-06</time>
+        <a href="/2018/yilia%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E6%8F%92%E4%BB%B6/" class="archive-article-date">
+  	<time datetime="2018-06-06T06:35:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-06</time>
 </a>
         
       </header>
@@ -636,7 +985,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/yilia%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E6%8F%92%E4%BB%B6/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/yilia%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E6%8F%92%E4%BB%B6/">展开全文 >></a>
         </p>
       
 
@@ -666,331 +1015,10 @@
 
 
   
-    <article id="post-Hexo安装配置yilia主题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/Hexo%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEyilia%E4%B8%BB%E9%A2%98/">Hexo安装配置yilia主题</a>
-    </h1>
-  
-
-        
-        <a href="/2019/Hexo%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEyilia%E4%B8%BB%E9%A2%98/" class="archive-article-date">
-  	<time datetime="2019-06-06T02:13:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>最后的效果可参考<a href="https://climbsnail.github.io" target="_blank" rel="noopener">本人博客</a><br><img src="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Note/blog.jpg" alt="hexo静态博客"></p>
-<h2 id="高级玩法之更换hexo主题"><a href="#高级玩法之更换hexo主题" class="headerlink" title="高级玩法之更换hexo主题"></a>高级玩法之更换hexo主题</h2><h5 id="使用hexo-theme-yilia主题"><a href="#使用hexo-theme-yilia主题" class="headerlink" title="使用hexo-theme-yilia主题"></a>使用hexo-theme-yilia主题</h5><ol>
-<li>在命令行中确保在本博客的根目录下，输入以下命令。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/litten/hexo-theme-yilia.git themes/yilia</span><br><span class="line"><span class="comment"># 注：themes/yilia意为将本次下载下来的yilia主题放在themes目录下</span></span><br></pre></td></tr></table></figure></li>
-<li>修改本博客根目录的<code>_config.yml</code>文件中的<code>theme</code>字段的参数，更改为<code>yilia</code>。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">theme: yilia</span><br></pre></td></tr></table></figure></li>
-<li>部分配置项介绍<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">favicon 为网页打开后的标签图标</span><br><span class="line">avatar  为网页主页的个人图标</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">静态博客搭建</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/Hexo%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEyilia%E4%B8%BB%E9%A2%98/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hexo+Github搭建个人静态博客" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/hexo+Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/">hexo+Github搭建个人静态博客</a>
-    </h1>
-  
-
-        
-        <a href="/2019/hexo+Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/" class="archive-article-date">
-  	<time datetime="2019-06-06T00:18:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>最后的效果可参考<a href="https://climbsnail.github.io" target="_blank" rel="noopener">本人博客</a><br><img src="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Note/blog.jpg" alt="hexo静态博客"></p>
-<h2 id="概要介绍"><a href="#概要介绍" class="headerlink" title="概要介绍"></a>概要介绍</h2><p>本文主要使用hexo搭建静态博客，并使用Github作为挂载点。</p>
-<h5 id="Hexo简介"><a href="#Hexo简介" class="headerlink" title="Hexo简介"></a>Hexo简介</h5><p>Hexo是一款基于Node.js的静态博客框架，依赖少易于安装使用，可以方便的生成静态网页托管在GitHub和Coding上，是搭建博客的首选框架。大家可以进入hexo官网进行详细查看，因为Hexo的创建者是台湾人，对中文的支持很友好，可以选择中文进行查看。</p>
-<h5 id="Github简介"><a href="#Github简介" class="headerlink" title="Github简介"></a>Github简介</h5><p>Github是一个面向开源及私有软件项目的托管平台,因为只支持 Git 作为唯一的版本库格式进行托管,故名 GitHub。</p>
-<h2 id="搭建步骤"><a href="#搭建步骤" class="headerlink" title="搭建步骤"></a>搭建步骤</h2><ol>
-<li>注册Github账号，并创建博客挂载点的仓库。</li>
-<li>安装Nodejs</li>
-<li>使用npm安装hexo</li>
-<li>正式开始使用hexo</li>
-<li>配置hexo</li>
-<li>测试</li>
-</ol>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">静态博客搭建</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/hexo+Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-搭建个人静态博客" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/">Hexo搭建博客系列教程</a>
-    </h1>
-  
-
-        
-        <a href="/2019/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/" class="archive-article-date">
-  	<time datetime="2019-06-05T23:18:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="Hexo搭建博客系列教程"><a href="#Hexo搭建博客系列教程" class="headerlink" title="Hexo搭建博客系列教程"></a>Hexo搭建博客系列教程</h4><ol>
-<li>Hexo搭建博客系列教程1__<a href="../hexo+Github搭建个人静态博客">hexo+Github搭建个人静态博客</a></li>
-<li>Hexo搭建博客系列教程2__<a href="../Hexo安装配置yilia主题">Hexo安装配置yilia主题</a></li>
-<li>Hexo搭建博客系列教程3__<a href="../yilia主题添加网易云音乐插件">yilia主题添加网易云音乐插件</a></li>
-<li>Hexo搭建博客系列教程4__<a href="../yilia主题添加Gitment评论插件题">yilia主题添加Gitment评论插件</a></li>
-<li>Hexo搭建博客系列教程5__<a href="../让搜索引擎收录博客">让搜索引擎收录博客</a></li>
-</ol>
-<p>最后的效果可参考<a href="https://climbsnail.github.io" target="_blank" rel="noopener">本人博客</a><br><img src="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Note/blog.jpg" alt="hexo静态博客"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">静态博客搭建</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-大力开山" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/%E5%A4%A7%E5%8A%9B%E5%BC%80%E5%B1%B1/">大家好，自我介绍一下。</a>
-    </h1>
-  
-
-        
-        <a href="/2019/%E5%A4%A7%E5%8A%9B%E5%BC%80%E5%B1%B1/" class="archive-article-date">
-  	<time datetime="2019-06-05T22:48:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="开篇"><a href="#开篇" class="headerlink" title="开篇"></a>开篇</h3><p>今天起，开始长期维护这个小博客了。</p>
-<h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><ol>
-<li>记录个人学习技术过程中的心得。</li>
-<li>分享我是如何给自己挖坑，并偷别人填坑的材料来填自己的坑。</li>
-</ol>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/%E5%A4%A7%E5%8A%9B%E5%BC%80%E5%B1%B1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+    </nav>
   
 
 
@@ -1083,11 +1111,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">静态博客搭建</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">项目</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">静态博客搭建</a>
+                <a href="javascript:void(0)" class="js-tag color3">硬件</a>
               </li>
              
               <li class="article-tag-list-item">

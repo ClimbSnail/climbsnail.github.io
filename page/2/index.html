@@ -7,13 +7,13 @@
   <meta name="google-site-verification" content="6ntAe3Qr2-4UmIEqRviFXQQI0ykka-AbVNVHPP1THow" />
   <meta name="baidu-site-verification" content="Gxxsqpe1yy" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <link rel="dns-prefetch" href="https://climbsnail.github.io">
+  <link rel="dns-prefetch" href="https://climbsnailq.gitee.io">
   <title>ClimbSnail</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="蜗牛给自己造了个火箭">
 <meta property="og:type" content="website">
 <meta property="og:title" content="ClimbSnail">
-<meta property="og:url" content="https://climbsnail.github.io/page/2/index.html">
+<meta property="og:url" content="https://climbsnailq.gitee.io/page/2/index.html">
 <meta property="og:site_name" content="ClimbSnail">
 <meta property="og:description" content="蜗牛给自己造了个火箭">
 <meta property="article:author" content="ClimbSnail">
@@ -171,6 +171,86 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-yilia主题添加网易云音乐插件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/yilia%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E6%8F%92%E4%BB%B6/">yilia主题添加网易云音乐插件</a>
+    </h1>
+  
+
+        
+        <a href="/2018/yilia%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E6%8F%92%E4%BB%B6/" class="archive-article-date">
+  	<time datetime="2018-06-06T06:35:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="添加网易云音乐播放插件"><a href="#添加网易云音乐播放插件" class="headerlink" title="添加网易云音乐播放插件"></a>添加网易云音乐播放插件</h5><ol>
+<li>打开网易云音乐首页，复制选择的背景音乐分享外链</li>
+</ol>
+<p>在<a href="https://music.163.com/" target="_blank" rel="noopener">网易云音乐</a> 网页中选中想要使用的音乐，进入播放界面，点击<code>生成外链播放器</code>，这里由于版权问题，网易云音乐无法对有版权的音乐生成外链！！！<br><img src="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Note/wangyiyunyinyue.jpg" alt="生成外链播放器"><br>2. 引入播放器代码</p>
+<p>在themes/yilia/layout/_partial/left-col.ejs文件nav标签中添加如下代码，代码中id后的<code>1334445174</code>为默认音乐的id号</p>
+<p>将代码中的红色部分和刚刚复制的网易云外链代码进行对照，将对应部分进行替换（不替换的话使用的是 纸短情长 歌曲）</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 网易云音乐插件 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">%</span> <span class="attr">if</span> (<span class="attr">theme.music</span> &amp;&amp; <span class="attr">theme.music.enable</span>)&#123; %&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"position:absolute; bottom:120px left:auto; width:85%"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">iframe</span> <span class="attr">frameborder</span>=<span class="string">"no"</span> <span class="attr">border</span>=<span class="string">"0"</span> <span class="attr">marginwidth</span>=<span class="string">"0"</span> <span class="attr">marginheight</span>=<span class="string">"0"</span> <span class="attr">width</span>=<span class="string">"240"</span> <span class="attr">height</span>=<span class="string">"52"</span> <span class="attr">src</span>=<span class="string">"//music.163.com/outchain/player?type=2&amp;id=&lt;%=theme.music.id||1433584979%&gt;&amp;auto=&lt;%=theme.music.autoplay?1:0%&gt;&amp;height=32"</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">%</span> &#125; %&gt;</span></span><br></pre></td></tr></table></figure>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">静态博客搭建</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/yilia%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E6%8F%92%E4%BB%B6/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-Hexo安装配置yilia主题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">

@@ -8,17 +8,27 @@
   <meta name="baidu-site-verification" content="Gxxsqpe1yy" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://climbsnailq.gitee.io">
-  <title>Archives: 2018/6 | ClimbSnail</title>
+  <title>多种GitHub加速方式 | ClimbSnail</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="蜗牛给自己造了个火箭">
-<meta property="og:type" content="website">
-<meta property="og:title" content="ClimbSnail">
-<meta property="og:url" content="https://climbsnailq.gitee.io/archives/2018/06/index.html">
+  <meta name="description" content="1. GitHub 镜像访问 2. GitHub文件加速 3. Github 加速下载 4. 加速你的 Github 5. 谷歌浏览器GitHub加速插件(推荐) 6. GitHub raw 加速 7. GitHub + Jsdelivr 8. 通过Gitee中转fork仓库下载 9. 通过修改HOSTS文件进行加速 为什么github下载速度这么慢？ 如何提高github的下载速度？ 第一步：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多种GitHub加速方式">
+<meta property="og:url" content="https://climbsnailq.gitee.io/2020/GithubSpeed/index.html">
 <meta property="og:site_name" content="ClimbSnail">
-<meta property="og:description" content="蜗牛给自己造了个火箭">
+<meta property="og:description" content="1. GitHub 镜像访问 2. GitHub文件加速 3. Github 加速下载 4. 加速你的 Github 5. 谷歌浏览器GitHub加速插件(推荐) 6. GitHub raw 加速 7. GitHub + Jsdelivr 8. 通过Gitee中转fork仓库下载 9. 通过修改HOSTS文件进行加速 为什么github下载速度这么慢？ 如何提高github的下载速度？ 第一步：">
+<meta property="og:image" content="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Note/GithubSpeed_toolwa.png">
+<meta property="og:image" content="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Note/GithubSpeed_ChromeSpeed.png">
+<meta property="og:image" content="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Note/GithubSpeed_gitee.png">
+<meta property="og:image" content="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Note/GithubSpeed_GiteeSpeed.png">
+<meta property="og:image" content="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Note/GithubSpeed_GiteeSpeedReflash.png">
+<meta property="og:image" content="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Note/GithubSpeed_fastly.png">
+<meta property="og:image" content="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Note/GithubSpeed_ipinfo.png">
+<meta property="article:published_time" content="2020-08-07T06:12:31.000Z">
+<meta property="article:modified_time" content="2020-09-24T22:35:22.000Z">
 <meta property="article:author" content="ClimbSnail">
-<meta property="article:tag" content="ClimbSnail">
+<meta property="article:tag" content="教程">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Note/GithubSpeed_toolwa.png">
   
     <link rel="alternative" href="/atom.xml" title="ClimbSnail" type="application/atom+xml">
   
@@ -170,288 +180,276 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-GithubSpeed" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      多种GitHub加速方式
+    </h1>
+  
+
+        
+        <a href="/2020/GithubSpeed/" class="archive-article-date">
+  	<time datetime="2020-08-07T06:12:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-07</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li><a href="#1"><font size=2 color=#00f>1. GitHub 镜像访问</font></a></li>
+<li><a href="#2"><font size=2 color=#00f>2. GitHub文件加速</font></a></li>
+<li><a href="#3"><font size=2 color=#00f>3. Github 加速下载</font></a></li>
+<li><a href="#4"><font size=2 color=#00f>4. 加速你的 Github</font></a></li>
+<li><a href="#5"><font size=2 color=#00f>5. 谷歌浏览器GitHub加速插件(推荐)</font></a></li>
+<li><a href="#6"><font size=2 color=#00f>6. GitHub raw 加速</font></a></li>
+<li><a href="#7"><font size=2 color=#00f>7. GitHub + Jsdelivr</font></a></li>
+<li><a href="#8"><font size=2 color=#00f>8. 通过Gitee中转fork仓库下载</font></a></li>
+<li><a href="#9"><font size=2 color=#00f>9. 通过修改HOSTS文件进行加速</font></a></li>
+<li><a href="#10"><font size=2 color=#00f>为什么github下载速度这么慢？</font></a></li>
+<li><a href="#11"><font size=2 color=#00f>如何提高github的下载速度？</font></a><ul>
+<li><a href="#11-1"><font size=2 color=#00f>第一步：获取github的global.ssl.fastly地址</font></a></li>
+<li><a href="#11-2"><font size=2 color=#00f>第二步：获取github.com地址</font></a></li>
+<li><a href="#11-3"><font size=2 color=#00f>第三步：修改host文件映射上面查找到的IP</font></a></li>
+</ul>
+</li>
+</ul>
+<p><em>2020年7月27日整理发布多种GitHub加速方式！</em></p>
+<h2 id="1-GitHub-镜像访问"><a href="#1-GitHub-镜像访问" class="headerlink" title="1. GitHub 镜像访问"></a><a id="1">1. GitHub 镜像访问</a></h2><p>这里提供两个最常用的镜像地址：</p>
+<ul>
+<li><a href="https://github.com.cnpmjs.org" target="_blank" rel="noopener">https://github.com.cnpmjs.org</a></li>
+<li><a href="https://hub.fastgit.org" target="_blank" rel="noopener">https://hub.fastgit.org</a></li>
+</ul>
+<p>也就是说上面的镜像就是一个克隆版的Github，你可以访问上面的镜像网站，网站的内容跟Github是完整同步的镜像，然后在这个网站里面进行下载克隆等操作。</p>
+<h2 id="2-GitHub文件加速"><a href="#2-GitHub文件加速" class="headerlink" title="2. GitHub文件加速"></a><a id="2">2. GitHub文件加速</a></h2><p>利用 Cloudflare Workers 对<code>github release</code> 、<code>archive</code> 以及项目文件进行加速，部署无需服务器且自带CDN.</p>
+<p><a href="https://gh.api.99988866.xyz" target="_blank" rel="noopener">https://gh.api.99988866.xyz</a><br><a href="https://g.ioiox.com" target="_blank" rel="noopener">https://g.ioiox.com</a> </p>
+<p>以上网站为演示站点，如无法打开可以查看开源项目：<a href="gh-proxy-GitHub">gh-proxy-GitHub</a> 文件加速</p>
+<p>自行部署。</p>
+<h2 id="3-Github-加速下载"><a href="#3-Github-加速下载" class="headerlink" title="3. Github 加速下载"></a><a id="3">3. Github 加速下载</a></h2><p>只需要复制当前 GitHub 地址粘贴到输入框中就可以代理加速下载！</p>
+<p>地址：<a href="http://toolwa.com/github/" target="_blank" rel="noopener">http://toolwa.com/github/</a></p>
+<p><img src="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Note/GithubSpeed_toolwa.png" alt=""></p>
+<h2 id="4-加速你的-Github"><a href="#4-加速你的-Github" class="headerlink" title="4. 加速你的 Github"></a><a id="4">4. 加速你的 Github</a></h2><p><a href="https://github.zhlh6.cn" target="_blank" rel="noopener">https://github.zhlh6.cn</a></p>
+<p>输入 Github 仓库地址，使用生成的地址进行 git ssh 等操作</p>
+<h2 id="5-谷歌浏览器GitHub加速插件-推荐"><a href="#5-谷歌浏览器GitHub加速插件-推荐" class="headerlink" title="5. 谷歌浏览器GitHub加速插件(推荐)"></a><a id="5">5. 谷歌浏览器GitHub加速插件(推荐)</a></h2><p><a href="https://chrome.google.com/webstore/detail/github%E5%8A%A0%E9%80%9F/mfnkflidjnladnkldfonnaicljppahpg/related?hl=zh-CN" target="_blank" rel="noopener">谷歌浏览器Github加速插件.crx</a> 下载<br>百度网盘: <a href="https://pan.baidu.com/s/1qGiIUzqNlN1ZczTNFbPg0A" target="_blank" rel="noopener">https://pan.baidu.com/s/1qGiIUzqNlN1ZczTNFbPg0A</a> ,提取码：stsv</p>
+<p>如果可以直接访问谷歌商店，可以访问<a href="https://chrome.google.com/webstore/detail/github%E5%8A%A0%E9%80%9F/mfnkflidjnladnkldfonnaicljppahpg" target="_blank" rel="noopener">GitHub加速谷歌</a>商店安装。</p>
+<p><img src="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Note/GithubSpeed_ChromeSpeed.png" alt=""></p>
+<h2 id="6-GitHub-raw-加速"><a href="#6-GitHub-raw-加速" class="headerlink" title="6. GitHub raw 加速"></a><a id="6">6. GitHub raw 加速</a></h2><p><code>GitHub raw</code>域名并非 <code>github.com</code>而是<a href="https://code.pingbook.top/blog/2020/raw.githubusercontent.com" target="_blank" rel="noopener">raw.githubusercontent.com</a>，上方的<code>GitHub</code>加速如果不能加速这个域名，那么可以使用 Static CDN 提供的反代服务。</p>
+<p>将<a href="https://code.pingbook.top/blog/2020/raw.githubusercontent.com" target="_blank" rel="noopener">raw.githubusercontent.com</a>替换为<a href="https://code.pingbook.top/blog/2020/raw.staticdn.net" target="_blank" rel="noopener">raw.staticdn.net</a>即可加速。</p>
+<h2 id="7-GitHub-Jsdelivr"><a href="#7-GitHub-Jsdelivr" class="headerlink" title="7. GitHub + Jsdelivr"></a><a id="7">7. GitHub + Jsdelivr</a></h2><p>jsdelivr 唯一美中不足的就是它不能获取 exe 文件以及 Release 处附加的 exe 和 dmg 文件。</p>
+<p>也就是说如果 exe 文件是附加在 Release 处但是没有在 code 里面的话是无法获取的。所以只能当作静态文件 cdn 用途，而不能作为 Release 加速下载的用途。<br>#</p>
+<h2 id="8-通过Gitee中转fork仓库下载"><a href="#8-通过Gitee中转fork仓库下载" class="headerlink" title="8. 通过Gitee中转fork仓库下载"></a><a id="8">8. 通过Gitee中转fork仓库下载</a></h2><p>网上有很多相关的教程，这里简要的说明下操作。</p>
+<ol>
+<li><p>访问gitee网站： <a href="https://gitee.com/" target="_blank" rel="noopener">https://gitee.com/</a>并登录，在顶部选择“从GitHub/GitLab导入仓库” 如下： <img src="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Note/GithubSpeed_gitee.png" alt=""></p>
+</li>
+<li><p>在导入页面中粘贴你的Github仓库地址，点击导入即可： </p>
+<p><img src="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Note/GithubSpeed_GiteeSpeed.png" alt=""></p>
+</li>
+<li><p>等待导入操作完成，然后在导入的仓库中下载浏览对应的该GitHub仓库代码，你也可以点击仓库顶部的“刷新”按钮进行Github代码仓库的同步。</p>
+</li>
+</ol>
+<p><img src="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Note/GithubSpeed_GiteeSpeedReflash.png" alt=""></p>
+<h2 id="9-通过修改HOSTS文件进行加速"><a href="#9-通过修改HOSTS文件进行加速" class="headerlink" title="9. 通过修改HOSTS文件进行加速"></a><a id="9">9. 通过修改HOSTS文件进行加速</a></h2><p><a href="https://code.pingbook.top/blog/2020/How-To-Speed-Github.html#%E5%A6%82%E4%BD%95%E6%8F%90%E9%AB%98github%E7%9A%84%E4%B8%8B%E8%BD%BD%E9%80%9F%E5%BA%A6%EF%BC%9F" target="_blank" rel="noopener">参考如下详细介绍</a></p>
+<h2 id="为什么github下载速度这么慢？"><a href="#为什么github下载速度这么慢？" class="headerlink" title="为什么github下载速度这么慢？"></a><a id="10">为什么github下载速度这么慢？</a></h2><p>GitHub 我们都知道是世界上最大的开源及私有软件项目的托管平台，全世界每天有海量优秀的开源软件在这里产生，而 GitHub 在国内很多时候获取到的下载链接是亚马逊的服务器。</p>
+<p>中国因为不可言说的原因，经常抽疯或龟速。想要加快 GitHub 下载速度就需要用到 GitHub 国内加速服务，对于有条件的可以使用代理加快访问速度，而没有条件的就可以用到网上热心人士维护的加速服务了。</p>
+<h2 id="如何提高github的下载速度？"><a href="#如何提高github的下载速度？" class="headerlink" title="如何提高github的下载速度？"></a><a id="11">如何提高github的下载速度？</a></h2><p>手动把cdn和ip地址绑定。</p>
+<h4 id="第一步：获取github的global-ssl-fastly地址"><a href="#第一步：获取github的global-ssl-fastly地址" class="headerlink" title="第一步：获取github的global.ssl.fastly地址"></a><a id="11-1">第一步：获取github的global.ssl.fastly地址</a></h4><p>访问：<a href="http://github.global.ssl.fastly.net.ipaddress.com/#ipinfo" target="_blank" rel="noopener">http://github.global.ssl.fastly.net.ipaddress.com/#ipinfo</a>获取cdn和ip域名： </p>
+<p><img src="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Note/GithubSpeed_fastly.png" alt=""></p>
+<p>得到：199.232.69.194 <a href="https://github.global.ssl.fastly.net" target="_blank" rel="noopener">https://github.global.ssl.fastly.net</a></p>
+<h4 id="第二步：获取github-com地址"><a href="#第二步：获取github-com地址" class="headerlink" title="第二步：获取github.com地址"></a><a id="11-2">第二步：获取github.com地址</a></h4><p>访问：<a href="https://github.com.ipaddress.com/#ipinfo" target="_blank" rel="noopener">https://github.com.ipaddress.com/#ipinfo</a> 获取cdn和ip：</p>
+<p><img src="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Note/GithubSpeed_ipinfo.png" alt=""></p>
+<p>得到：140.82.114.3 <a href="http://github.com" target="_blank" rel="noopener">http://github.com</a></p>
+<h4 id="第三步：修改host文件映射上面查找到的IP"><a href="#第三步：修改host文件映射上面查找到的IP" class="headerlink" title="第三步：修改host文件映射上面查找到的IP"></a><a id="11-3">第三步：修改host文件映射上面查找到的IP</a></h4><p>windows系统：</p>
+<p>1、修改<code>C:\Windows\System32\drivers\etc\hosts</code>文件的权限，指定可写入：</p>
+<p><code>右击</code>-&gt;<code>hosts</code>-&gt;<code>属性</code>-&gt;<code>安全</code>-&gt;<code>编辑</code>-&gt;<code>点击Users</code>-&gt;在Users的权限<code>“写入”</code>后面打勾。如下： 无法显示</p>
+<p>然后点击<code>确定</code>。</p>
+<p>2、右击-&gt;hosts-&gt;打开方式-&gt;选定记事本（或者你喜欢的编辑器）-&gt;在末尾处添加以下内容：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">199.232.69.194 github.global.ssl.fastly.net</span><br><span class="line">140.82.114.4 github.com</span><br></pre></td></tr></table></figure>
+
+
+
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Note/zhifubao_collection.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Note/weixin_collection.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/%E8%AE%A9%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%94%B6%E5%BD%95%E5%8D%9A%E5%AE%A2/" class="archive-article-date">
-  	<time datetime="2018-06-08T12:52:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-08</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/%E8%AE%A9%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%94%B6%E5%BD%95%E5%8D%9A%E5%AE%A2/">让搜索引擎收录博客</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">静态博客搭建</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">教程</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://climbsnailq.gitee.io/2020/GithubSpeed/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/yilia%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0Gitment%E8%AF%84%E8%AE%BA%E6%8F%92%E4%BB%B6/" class="archive-article-date">
-  	<time datetime="2018-06-06T08:53:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-06</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/OrangePi_Zero_Plus_CPU_Fre/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">香橙派 OrangePi Zero plus主频1.3Ghz启动失败</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/yilia%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0Gitment%E8%AF%84%E8%AE%BA%E6%8F%92%E4%BB%B6/">yilia主题添加Gitment评论插件</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">静态博客搭建</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-GitHub-镜像访问"><span class="toc-number">1.</span> <span class="toc-text">1. GitHub 镜像访问</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-GitHub文件加速"><span class="toc-number">2.</span> <span class="toc-text">2. GitHub文件加速</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Github-加速下载"><span class="toc-number">3.</span> <span class="toc-text">3. Github 加速下载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-加速你的-Github"><span class="toc-number">4.</span> <span class="toc-text">4. 加速你的 Github</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-谷歌浏览器GitHub加速插件-推荐"><span class="toc-number">5.</span> <span class="toc-text">5. 谷歌浏览器GitHub加速插件(推荐)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-GitHub-raw-加速"><span class="toc-number">6.</span> <span class="toc-text">6. GitHub raw 加速</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-GitHub-Jsdelivr"><span class="toc-number">7.</span> <span class="toc-text">7. GitHub + Jsdelivr</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-通过Gitee中转fork仓库下载"><span class="toc-number">8.</span> <span class="toc-text">8. 通过Gitee中转fork仓库下载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-通过修改HOSTS文件进行加速"><span class="toc-number">9.</span> <span class="toc-text">9. 通过修改HOSTS文件进行加速</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么github下载速度这么慢？"><span class="toc-number">10.</span> <span class="toc-text">为什么github下载速度这么慢？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何提高github的下载速度？"><span class="toc-number">11.</span> <span class="toc-text">如何提高github的下载速度？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#第一步：获取github的global-ssl-fastly地址"><span class="toc-number">11.0.1.</span> <span class="toc-text">第一步：获取github的global.ssl.fastly地址</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第二步：获取github-com地址"><span class="toc-number">11.0.2.</span> <span class="toc-text">第二步：获取github.com地址</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第三步：修改host文件映射上面查找到的IP"><span class="toc-number">11.0.3.</span> <span class="toc-text">第三步：修改host文件映射上面查找到的IP</span></a></li></ol></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/yilia%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E6%8F%92%E4%BB%B6/" class="archive-article-date">
-  	<time datetime="2018-06-06T06:35:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-06</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/yilia%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E6%8F%92%E4%BB%B6/">yilia主题添加网易云音乐插件</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">静态博客搭建</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/Hexo%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEyilia%E4%B8%BB%E9%A2%98/" class="archive-article-date">
-  	<time datetime="2018-06-06T02:13:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/Hexo%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEyilia%E4%B8%BB%E9%A2%98/">Hexo安装配置yilia主题</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">静态博客搭建</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/hexo+Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/" class="archive-article-date">
-  	<time datetime="2018-06-06T00:18:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/hexo+Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/">hexo+Github搭建个人静态博客</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">静态博客搭建</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/" class="archive-article-date">
-  	<time datetime="2018-06-05T23:18:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-06</time>
-</a>
-        </div>
-    	 
+  <div id="gitment-ctn"></div> 
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: "https://climbsnailq.gitee.io/2020/GithubSpeed/",
+  owner: 'ClimbSnail',
+  repo: 'Gitment',
+  oauth: {
+    client_id: 'f4b3ff80a25d18d4114d',
+    client_secret: '5be54b4a6b455885f030974b0432a18292f50933',
+  },
+})
+gitment.render('gitment-ctn')
+</script>
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/">Hexo搭建博客系列教程</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">静态博客搭建</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/from_now_on/" class="archive-article-date">
-  	<time datetime="2018-06-05T22:48:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/from_now_on/">大家好，自我介绍一下。</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -473,8 +471,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

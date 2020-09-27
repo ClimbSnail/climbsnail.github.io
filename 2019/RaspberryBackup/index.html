@@ -8,16 +8,18 @@
   <meta name="baidu-site-verification" content="Gxxsqpe1yy" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://climbsnailq.gitee.io">
-  <title>Archives: 2018/6 | ClimbSnail</title>
+  <title>Raspberry系统备份 | ClimbSnail</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="蜗牛给自己造了个火箭">
-<meta property="og:type" content="website">
-<meta property="og:title" content="ClimbSnail">
-<meta property="og:url" content="https://climbsnailq.gitee.io/archives/2018/06/index.html">
+  <meta name="description" content="前序之前复制或者备份树莓派的SD卡，都是用dd命令全盘复制，可以用，但是这样有两大缺点：  慢 一个大的SD卡，比如64G，即使只用了2G，经过dd命令生成的img文件也会生成一个和整个SD卡容量一样大小的文件，即64G。  于是，需要有一个可以解决上述问题的制作树莓派SD卡img映像文件的方法。 在网上搜索了一些，做了些研究，发现还是有办法的。 如下列网址所述：（感谢作者）http:&#x2F;&#x2F;www.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Raspberry系统备份">
+<meta property="og:url" content="https://climbsnailq.gitee.io/2019/RaspberryBackup/index.html">
 <meta property="og:site_name" content="ClimbSnail">
-<meta property="og:description" content="蜗牛给自己造了个火箭">
+<meta property="og:description" content="前序之前复制或者备份树莓派的SD卡，都是用dd命令全盘复制，可以用，但是这样有两大缺点：  慢 一个大的SD卡，比如64G，即使只用了2G，经过dd命令生成的img文件也会生成一个和整个SD卡容量一样大小的文件，即64G。  于是，需要有一个可以解决上述问题的制作树莓派SD卡img映像文件的方法。 在网上搜索了一些，做了些研究，发现还是有办法的。 如下列网址所述：（感谢作者）http:&#x2F;&#x2F;www.">
+<meta property="article:published_time" content="2019-03-06T03:25:22.000Z">
+<meta property="article:modified_time" content="2019-03-06T03:25:22.000Z">
 <meta property="article:author" content="ClimbSnail">
-<meta property="article:tag" content="ClimbSnail">
+<meta property="article:tag" content="教程">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="ClimbSnail" type="application/atom+xml">
@@ -170,288 +172,362 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-RaspberryBackup" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Raspberry系统备份
+    </h1>
+  
+
+        
+        <a href="/2019/RaspberryBackup/" class="archive-article-date">
+  	<time datetime="2019-03-06T03:25:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-06</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="前序"><a href="#前序" class="headerlink" title="前序"></a>前序</h1><p>之前复制或者备份树莓派的SD卡，都是用<code>dd</code>命令全盘复制，可以用，但是这样有两大缺点：</p>
+<ol>
+<li>慢</li>
+<li>一个大的SD卡，比如<code>64G</code>，即使只用了<code>2G</code>，经过<code>dd</code>命令生成的<code>img文件</code>也会生成一个和整个SD卡容量一样大小的文件，即64G。</li>
+</ol>
+<p>于是，需要有一个可以解决上述问题的制作树莓派SD卡<code>img映像</code>文件的方法。</p>
+<p>在网上搜索了一些，做了些研究，发现还是有办法的。 如下列网址所述：（感谢作者）<br><a href="http://www.cnblogs.com/haochuang/p/6066532.html" target="_blank" rel="noopener">http://www.cnblogs.com/haochuang/p/6066532.html</a></p>
+<a id="more"></a>
+
+
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><ol>
+<li>准备一个<code>树莓派Raspberry Pi</code>和另外的<code>Raspbian系统</code>，并启动，用来作为备份操作的环境。要保证这个系统所在的SD卡的空间够大（我用了64G的卡，虽然没有必要这么大），足够用来保存<code>img</code>备份文件。</li>
+</ol>
+<p><em>ps:用PC上的其他<code>Linux</code>系统也可以，比如<code>Debian 9.3</code>。 而且用<code>PC</code>会快一些。</em></p>
+<ol start="2">
+<li>准备好要备份的SD卡，和USB读卡器。</li>
+<li>将插好源SD卡的读卡器插入树莓派（或PC）。</li>
+<li>首先安装必需的工具软件： <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~ $ sudo apt-get install dosfstools dump parted kpartx</span><br></pre></td></tr></table></figure></li>
+<li>建立工作目录<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~ $ mkdir ~/backupimg</span><br><span class="line">pi@raspberrypi:~ $ <span class="built_in">cd</span> ~/backupimg</span><br><span class="line">pi@raspberrypi:~/backupimg $</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h1 id="生成空白img文件"><a href="#生成空白img文件" class="headerlink" title="生成空白img文件"></a>生成空白img文件</h1><h3 id="确定设备"><a href="#确定设备" class="headerlink" title="确定设备"></a>确定设备</h3><p>插入装有源SD卡的读卡器到USB口后，确定源SD卡对应的设备名</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~/backupimg $ ls /dev/sd*</span><br><span class="line">/dev/sda  /dev/sda1  /dev/sda2</span><br></pre></td></tr></table></figure>
+
+<p>如上所示<code>/dev/sda</code>为源SD卡，<code>/dev/sda1</code>为<code>/boot</code>，<code>/dev/sda2</code>为<code>/</code>（根）。</p>
+<p>不同的系统会有所不同，可能会是<code>sdb…</code>或其他，例如：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yang@debian:~/backupimg$ ls /dev/sd*</span><br><span class="line">/dev/sda  /dev/sda1  /dev/sda2  /dev/sda5  /dev/sdb  /dev/sdb1  /dev/sdb2</span><br></pre></td></tr></table></figure>
+
+<h3 id="挂载源SD卡"><a href="#挂载源SD卡" class="headerlink" title="挂载源SD卡"></a>挂载源SD卡</h3><ol>
+<li>新建目录挂载<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~/backupimg $ mkdir src_boot src_Root</span><br><span class="line">pi@raspberrypi:~/backupimg $ sudo mount -t vfat -o uid=pi,gid=pi,<span class="built_in">umask</span>=0000 /dev/sda1 ./src_boot/</span><br><span class="line">pi@raspberrypi:~/backupimg $ sudo mount -t ext4 /dev/sda2 ./src_Root/</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>请注意，我用的是另一个raspberry系统做备份操作的，如果是用其他linux系统，例如PC上的Debian，请注意uid和gid的设置，上述第2，3条命令可能会是：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yang@debian:~/backupimg$ sudo mount -t vfat -o uid=yang,gid=yang,<span class="built_in">umask</span>=0000 /dev/sdb1 ./src_boot/</span><br><span class="line">yang@debian:~/backupimg$ sudo mount -t ext4 /dev/sdb2 ./src_Root/</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>查看源SD卡已用空间大小<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~/backupimg $ df -h</span><br><span class="line">Filesystem      Size  Used Avail Use% Mounted on</span><br><span class="line">/dev/root        59G  6.1G   51G  11% /</span><br><span class="line">devtmpfs        460M     0  460M   0% /dev</span><br><span class="line">tmpfs           464M     0  464M   0% /dev/shm</span><br><span class="line">tmpfs           464M   13M  452M   3% /run</span><br><span class="line">tmpfs           5.0M  4.0K  5.0M   1% /run/lock</span><br><span class="line">tmpfs           464M     0  464M   0% /sys/fs/cgroup</span><br><span class="line">/dev/mmcblk0p1   42M   21M   21M  51% /boot</span><br><span class="line">tmpfs            93M     0   93M   0% /run/user/1000</span><br><span class="line">/dev/sda1        56M   21M   36M  37% /home/pi/backupimg/src_boot</span><br><span class="line">/dev/sda2        15G  4.0G  9.9G  29% /home/pi/backupimg/src_Root</span><br></pre></td></tr></table></figure>
+如上可以看出/dev/sda已用空间大约4G</li>
+</ol>
+<h3 id="创建空img文件"><a href="#创建空img文件" class="headerlink" title="创建空img文件"></a>创建空img文件</h3><ol>
+<li>创建空白img文件<br>因为源SD卡已用空间大约4G，那么建立一个4600M的空白img文件应该够了。（安全起见，设定5000会更好）<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~/backupimg $ sudo dd <span class="keyword">if</span>=/dev/zero of=raspberrypi.img bs=1M count=4600</span><br><span class="line">4600+0 records <span class="keyword">in</span></span><br><span class="line">4600+0 records out</span><br><span class="line">4823449600 bytes (4.8 GB, 4.5 GiB) copied, 283.248 s, 17.0 MB/s</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>特别注意这里 bs=1M，千万不要写成1MB<br>1M是1024<em>1024 Bytes， 而1MB是1000</em>1000 Bytes，会造成img文件的大小不是512 bytes的整数倍，后面会报错。</p>
+<p>这个过程大约几分钟完成。 如果比较着急，可以另开一个终端，运行如下命令，可以观察到img文件大小的变化。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~ $ watch -d -n 5 ls -lh ~/backupimg</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>完成后，确认一下img文件已经生成，且文件大小正确<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~/backupimg $ ls -l raspberrypi.img</span><br><span class="line">-rw-r--r-- 1 root root 4823449600 Dec 15 22:00 raspberrypi.img</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>查看分区信息(只关注sda项中的Start与End)</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~/backupimg $ sudo fdisk -l</span><br></pre></td></tr></table></figure>
+
+<h3 id="给img文件分区"><a href="#给img文件分区" class="headerlink" title="给img文件分区"></a>给img文件分区</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~/backupimg $ sudo parted raspberrypi.img --script -- mklabel msdos</span><br><span class="line">pi@raspberrypi:~/backupimg $ sudo parted raspberrypi.img --script -- mkpart primary fat32 8192s 122479s</span><br><span class="line">pi@raspberrypi:~/backupimg $ sudo parted raspberrypi.img --script -- mkpart primary ext4 122880s -1</span><br></pre></td></tr></table></figure>
+
+<p>分区的起始扇区数都是 8192 的倍数，以保证4k对齐<br>检查分区是否成功 </p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~/backupimg $ sudo parted raspberrypi.img</span><br><span class="line">GNU Parted 3.2</span><br><span class="line">Using /home/pi/backupimg/raspberrypi.img</span><br><span class="line">Welcome to GNU Parted! Type <span class="string">'help'</span> to view a list of commands.</span><br><span class="line">(parted) <span class="built_in">print</span> free                                                       </span><br><span class="line">Model:  (file)</span><br><span class="line">Disk /home/pi/backupimg/raspberrypi.img: 4823MB</span><br><span class="line">Sector size (logical/physical): 512B/512B</span><br><span class="line">Partition Table: msdos</span><br><span class="line">Disk Flags: </span><br><span class="line"></span><br><span class="line">Number  Start   End     Size    Type     File system  Flags</span><br><span class="line">        16.4kB  4194kB  4178kB           Free Space</span><br><span class="line"> 1      4194kB  62.7MB  58.5MB  primary               lba</span><br><span class="line">        62.7MB  62.9MB  205kB            Free Space</span><br><span class="line"> 2      62.9MB  4822MB  4759MB  primary</span><br><span class="line">        4822MB  4823MB  1049kB           Free Space</span><br><span class="line">(parted) quit</span><br></pre></td></tr></table></figure>
+<p>在parted程序中，输入print free命令可以显示分区内容，输入quit退出</p>
+<h3 id="挂载img文件到系统"><a href="#挂载img文件到系统" class="headerlink" title="挂载img文件到系统"></a>挂载img文件到系统</h3><p>img文件对应的Loop device的设置</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~/backupimg $ sudo losetup -f --show raspberrypi.img</span><br><span class="line">/dev/loop0</span><br></pre></td></tr></table></figure>
+
+<p>下面的命令中相应输入/dev/loop0，如果不是 loop0 请做相应调整（以及以后的各个步骤里的loop0都要改变）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~/backupimg $ sudo kpartx -va /dev/loop0</span><br><span class="line">add map loop0p1 (254:0): 0 114288 linear 7:0 8192</span><br><span class="line">add map loop0p2 (254:1): 0 9295872 linear 7:0 122880</span><br><span class="line"></span><br><span class="line">pi@raspberrypi:~/backupimg $ ls /dev/mapper/loop0p*</span><br><span class="line">/dev/mapper/loop0p1  /dev/mapper/loop0p2</span><br></pre></td></tr></table></figure>
+<p>此时loop device就设置好了，loop0p1对应的是img文件分区上的 /boot，loop0p2对应的是 /（根）</p>
+<h3 id="给img文件中的两个分区格式化"><a href="#给img文件中的两个分区格式化" class="headerlink" title="给img文件中的两个分区格式化"></a>给img文件中的两个分区格式化</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~/backupimg $ sudo mkfs.vfat -n boot /dev/mapper/loop0p1</span><br><span class="line">mkfs.fat 4.1 (2017-01-24)</span><br><span class="line">mkfs.fat: warning - lowercase labels might not work properly with DOS or Windows</span><br><span class="line">pi@raspberrypi:~/backupimg $ sudo mkfs.ext4 /dev/mapper/loop0p2</span><br><span class="line">mke2fs 1.43.4 (31-Jan-2017)</span><br><span class="line">Discarding device blocks: <span class="keyword">done</span>                            </span><br><span class="line">Creating filesystem with 1161984 4k blocks and 290880 inodes</span><br><span class="line">Filesystem UUID: d3e5d272-7752-48b2-a10e-e0e6d217ca7e</span><br><span class="line">Superblock backups stored on blocks: </span><br><span class="line">32768, 98304, 163840, 229376, 294912, 819200, 884736</span><br><span class="line"></span><br><span class="line">Allocating group tables: <span class="keyword">done</span>                            </span><br><span class="line">Writing inode tables: <span class="keyword">done</span>                            </span><br><span class="line">Creating journal (16384 blocks): <span class="keyword">done</span></span><br><span class="line">Writing superblocks and filesystem accounting information: <span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="挂载目标img文件loop-device"><a href="#挂载目标img文件loop-device" class="headerlink" title="挂载目标img文件loop device"></a>挂载目标img文件loop device</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~/backupimg $ mkdir tgt_boot tgt_Root</span><br><span class="line">pi@raspberrypi:~/backupimg $ sudo mount -t vfat -o uid=pi,gid=pi,<span class="built_in">umask</span>=0000 /dev/mapper/loop0p1 ./tgt_boot/</span><br><span class="line">pi@raspberrypi:~/backupimg $ sudo mount -t ext4 /dev/mapper/loop0p2 ./tgt_Root/</span><br></pre></td></tr></table></figure>
+
+<p>请注意，我用的是另一个raspberry系统做备份操作的，如果是用其他linux系统，请注意uid和gid的设置，上述第2，3条命令可能会是：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yang@debian:~/backupimg$ sudo mount -t vfat -o uid=yang,gid=yang,<span class="built_in">umask</span>=0000 /dev/mapper/loop0p1 ./tgt_boot/</span><br><span class="line">yang@debian:~/backupimg$ sudo mount -t ext4 /dev/mapper/loop0p2 ./tgt_Root/</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="备份-boot"><a href="#备份-boot" class="headerlink" title="备份/boot"></a>备份/boot</h1><p>首先备份/boot，直接拷贝即可</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~/backupimg $ sudo cp -rfp ./src_boot/* ./tgt_boot/</span><br></pre></td></tr></table></figure>
+
+<h3 id="备份“-”"><a href="#备份“-”" class="headerlink" title="备份“/”"></a>备份“/”</h3><p>备份根文件系统稍微复杂些，可以用两种方法</p>
+<h5 id="方法一、dump-restore方法"><a href="#方法一、dump-restore方法" class="headerlink" title="方法一、dump/restore方法"></a>方法一、dump/restore方法</h5><p>首先对目标挂载点设置合适的权限，并清空</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~/backupimg $ sudo chmod 777 tgt_Root</span><br><span class="line">pi@raspberrypi:~/backupimg $ sudo chown pi.pi tgt_Root</span><br><span class="line">pi@raspberrypi:~/backupimg $ sudo rm -rf ./tgt_Root/*</span><br><span class="line">pi@raspberrypi:~/backupimg $ <span class="built_in">cd</span> tgt_Root/</span><br></pre></td></tr></table></figure>
+
+<p>请注意，我用的是另一个raspberry系统做备份操作的，如果是用其他linux系统，请注意uid和gid的设置，上述第2条命令可能会是：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yang@debian:~/backupimg$ sudo chown yang.yang tgt_Root</span><br></pre></td></tr></table></figure>
+
+<p>然后开始备份</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~/backupimg/tgt_Root $ sudo dump -0uaf - ../src_Root/ | sudo restore -rf -</span><br><span class="line">  DUMP: Date of this level 0 dump: Fri Dec 15 22:22:34 2017</span><br><span class="line">  DUMP: Dumping /dev/sda2 (/home/pi/backupimg/src_Root) to standard output</span><br><span class="line">  DUMP: Label: none</span><br><span class="line">  DUMP: Writing 10 Kilobyte records</span><br><span class="line">  DUMP: mapping (Pass I) [regular files]</span><br><span class="line">  DUMP: mapping (Pass II) [directories]</span><br><span class="line">  DUMP: estimated 4241064 blocks.</span><br><span class="line">  DUMP: Volume 1 started with block 1 at: Fri Dec 15 22:22:35 2017</span><br><span class="line">  DUMP: dumping (Pass III) [directories]</span><br><span class="line">  DUMP: dumping (Pass IV) [regular files]</span><br><span class="line">  DUMP: 62.53% <span class="keyword">done</span> at 8780 kB/s, finished <span class="keyword">in</span> 0:03</span><br><span class="line">  DUMP: Volume 1 completed at: Fri Dec 15 22:30:36 2017</span><br><span class="line">  DUMP: Volume 1 4242680 blocks (4143.24MB)</span><br><span class="line">  DUMP: Volume 1 took 0:08:01</span><br><span class="line">  DUMP: Volume 1 transfer rate: 8820 kB/s</span><br><span class="line">  DUMP: 4242680 blocks (4143.24MB)</span><br><span class="line">  DUMP: finished <span class="keyword">in</span> 481 seconds, throughput 8820 kBytes/sec</span><br><span class="line">  DUMP: Date of this level 0 dump: Fri Dec 15 22:22:34 2017</span><br><span class="line">  DUMP: Date this dump completed:  Fri Dec 15 22:30:36 2017</span><br><span class="line">  DUMP: Average transfer rate: 8820 kB/s</span><br><span class="line">  DUMP: DUMP IS DONE</span><br></pre></td></tr></table></figure>
+
+<p>整个dump/restore过程需要几分钟时间，看到 DUMP IS DONE 就说明备份成功了</p>
+<p>然后返回上层目录</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~/backupimg/tgt_Root $ <span class="built_in">cd</span> ..</span><br><span class="line">pi@raspberrypi:~/backupimg $</span><br></pre></td></tr></table></figure>
+
+<h5 id="方法二、tar方法"><a href="#方法二、tar方法" class="headerlink" title="方法二、tar方法"></a>方法二、tar方法</h5><p>如果上述方法一的 sudo dump … 那一步出现 Broken pipe、 Illegal instruction等错误而失败的话，可以使用方法二。<br>这个方法会使用tar把源SD卡的根文件系统打包，所以在本机系统空间里需要额外的和源SD卡的根文件系统已用空间大小一样的可用空间。</p>
+<p>首先，和方法一里面一样，对目标挂载点设置合适的权限，并清空</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~/backupimg $ sudo chmod 777 tgt_Root</span><br><span class="line">pi@raspberrypi:~/backupimg $ sudo chown pi.pi tgt_Root</span><br><span class="line">pi@raspberrypi:~/backupimg $ sudo rm -rf ./tgt_Root/*</span><br></pre></td></tr></table></figure>
+
+<p>请注意，我用的是另一个raspberry系统做备份操作的，如果是用其他linux系统，请注意uid和gid的设置，上述第2条命令可能会是：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yang@debian:~/backupimg$ sudo chown yang.yang tgt_Root</span><br></pre></td></tr></table></figure>
+
+<p>然后用tar把源SD卡的根文件系统打包</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~/backupimg $ <span class="built_in">cd</span> src_Root/</span><br><span class="line">pi@raspberrypi:~/backupimg/src_Root $ sudo tar pcf ../backup.tar .		<span class="comment"># 最后面有个”.”号</span></span><br></pre></td></tr></table></figure>
+
+<p>tar的过程中可能会出现一些 socket ignored 错误，可以忽略。</p>
+<p>此过程可能需要比较长的时间，可另外开一个终端，运行如下命令，用来观察backup.tar文件大小的变化。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~ $ watch -d -n 5 ls -lh ~/backupimg</span><br></pre></td></tr></table></figure>
+
+<p>上述打包过程结束后，接着将tar包解开到目标img文件的根文件系统</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~/backupimg $ <span class="built_in">cd</span> ../tgt_Root/</span><br><span class="line">pi@raspberrypi:~/backupimg/tgt_Root $ sudo tar pxf ../backup.tar</span><br></pre></td></tr></table></figure>
+
+<p>此过程可能需要比较长的时间，可另外开一个终端，运行如下命令，用来观察目标img文件的根文件系统的已用空间大小变化</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~ $ watch -d -n 5 df -h```sh</span><br></pre></td></tr></table></figure>
+
+<p>解包过程结束后，回到上层目录，并删除backup.tar文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~/backupimg/tgt_Root $ <span class="built_in">cd</span> ..</span><br><span class="line">pi@raspberrypi:~/backupimg $ sudo rm backup.tar </span><br><span class="line">pi@raspberrypi:~/backupimg $</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="相应修改PARTUUID设定"><a href="#相应修改PARTUUID设定" class="headerlink" title="相应修改PARTUUID设定"></a>相应修改PARTUUID设定</h3><p>这时候整个备份就已经完成了。不过此时的img文件即使写入到空白SD卡里面也是无法启动的，因为Raspbian启动要对应分区的PARTUUID，所以我们还要修改目标img文件里的如下两个文件：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./tgt_boot/cmdline.txt </span><br><span class="line">./tgt_Root/etc/fstab</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>首先查看img文件对应的loop device的两个分区的PARTUUID</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~/backupimg $ sudo blkid</span><br><span class="line">/dev/mmcblk0p1: LABEL=<span class="string">"boot"</span> UUID=<span class="string">"E5B7-FEA1"</span> TYPE=<span class="string">"vfat"</span> PARTUUID=<span class="string">"ddffe93a-01"</span></span><br><span class="line">/dev/mmcblk0p2: UUID=<span class="string">"b4ea8e46-fe87-4ddd-9e94-506c37005ac5"</span> TYPE=<span class="string">"ext4"</span> PARTUUID=<span class="string">"ddffe93a-02"</span></span><br><span class="line">/dev/sda2: UUID=<span class="string">"9a7608bd-5bff-4dfc-ac1d-63a956744162"</span> TYPE=<span class="string">"ext4"</span> PARTUUID=<span class="string">"ec04fe79-02"</span></span><br><span class="line">/dev/loop0: PTUUID=<span class="string">"af2f8761"</span> PTTYPE=<span class="string">"dos"</span></span><br><span class="line">/dev/mmcblk0: PTUUID=<span class="string">"ddffe93a"</span> PTTYPE=<span class="string">"dos"</span></span><br><span class="line">/dev/sda1: LABEL=<span class="string">"boot"</span> UUID=<span class="string">"B60A-B262"</span> TYPE=<span class="string">"vfat"</span> PARTUUID=<span class="string">"ec04fe79-01"</span></span><br><span class="line">/dev/mapper/loop0p1: SEC_TYPE=<span class="string">"msdos"</span> LABEL=<span class="string">"boot"</span> UUID=<span class="string">"755C-C29C"</span> TYPE=<span class="string">"vfat"</span> PARTUUID=<span class="string">"af2f8761-01"</span></span><br><span class="line">/dev/mapper/loop0p2: UUID=<span class="string">"a174c97e-049f-4fbd-abb7-0b9098dae24a"</span> TYPE=<span class="string">"ext4"</span> PARTUUID=<span class="string">"af2f8761-02"</span></span><br></pre></td></tr></table></figure>
+<p>这里可以看到/boot对应的是af2f8761-01 ， / 对应的是af2f8761-02</p>
+</li>
+<li><p>修改 cmdline.txt 文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~/backupimg $ sudo vi ./tgt_boot/cmdline.txt </span><br><span class="line">pi@raspberrypi:~/backupimg $ cat ./tgt_boot/cmdline.txt </span><br><span class="line">dwc_otg.lpm_enable=0 console=serial0,115200 console=tty1 root=PARTUUID=af2f8761-02 rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改 fstab 文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~/backupimg $ sudo vi ./tgt_Root/etc/fstab </span><br><span class="line">pi@raspberrypi:~/backupimg $ cat ./tgt_Root/etc/fstab </span><br><span class="line">proc            /proc           proc    defaults          0       0</span><br><span class="line">PARTUUID=af2f8761-01  /boot           vfat    defaults          0       2</span><br><span class="line">PARTUUID=af2f8761-02  /               ext4    defaults,noatime  0       1</span><br><span class="line"><span class="comment"># a swapfile is not a swap partition, no line here</span></span><br><span class="line"><span class="comment">#   use  dphys-swapfile swap[on|off]  for that</span></span><br></pre></td></tr></table></figure></li>
+<li><p>卸载各个挂载的分区</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~/backupimg $ sudo umount src_boot src_Root tgt_boot tgt_Root</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除loop device</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~/backupimg $ sudo kpartx -d /dev/loop0</span><br><span class="line">pi@raspberrypi:~/backupimg $ sudo losetup -d /dev/loop0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除挂载点目录</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~/backupimg $ rmdir src_boot src_Root tgt_boot tgt_Root</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>最后剩下img文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~/backupimg $ ls -l</span><br><span class="line">total 4469676</span><br><span class="line">-rw-r--r-- 1 root root 4823449600 Dec 15 23:10 raspberrypi.img</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h1 id="大功告成"><a href="#大功告成" class="headerlink" title="大功告成"></a>大功告成</h1><p>完成之后可以用dd或者Etcher烧写img文件到其他SD卡中，注意烧写到新卡中在树莓派中运行后，要先用raspi-config先把分区空间expand一下，否则可用空间会很小。</p>
+<h1 id="拷贝（移动）镜像"><a href="#拷贝（移动）镜像" class="headerlink" title="拷贝（移动）镜像"></a>拷贝（移动）镜像</h1><h3 id="挂载windows共享磁盘"><a href="#挂载windows共享磁盘" class="headerlink" title="挂载windows共享磁盘"></a>挂载windows共享磁盘</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mount -t cifs -o username=<span class="string">"Hello World"</span>,password=<span class="string">"HQ"</span> //192.168.31.141/Raspberry  /home/pi/share</span><br></pre></td></tr></table></figure>
+
+<h3 id="将刚制作的镜像复制到windows上"><a href="#将刚制作的镜像复制到windows上" class="headerlink" title="将刚制作的镜像复制到windows上"></a>将刚制作的镜像复制到windows上</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cp ./backupimg/RPi_OpenCV.img ./share</span><br></pre></td></tr></table></figure>
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Note/zhifubao_collection.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Note/weixin_collection.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/%E8%AE%A9%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%94%B6%E5%BD%95%E5%8D%9A%E5%AE%A2/" class="archive-article-date">
-  	<time datetime="2018-06-08T12:52:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-08</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/%E8%AE%A9%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%94%B6%E5%BD%95%E5%8D%9A%E5%AE%A2/">让搜索引擎收录博客</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">静态博客搭建</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">教程</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://climbsnailq.gitee.io/2019/RaspberryBackup/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/yilia%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0Gitment%E8%AF%84%E8%AE%BA%E6%8F%92%E4%BB%B6/" class="archive-article-date">
-  	<time datetime="2018-06-06T08:53:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-06</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2019/%E6%A0%91%E8%8E%93%E6%B4%BE%E6%B5%8B%E8%AF%95SPI%E6%8E%A5%E5%8F%A3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          树莓派测试SPI接口
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/download/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">资源站点</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/yilia%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0Gitment%E8%AF%84%E8%AE%BA%E6%8F%92%E4%BB%B6/">yilia主题添加Gitment评论插件</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">静态博客搭建</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前序"><span class="toc-number">1.</span> <span class="toc-text">前序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#准备"><span class="toc-number">2.</span> <span class="toc-text">准备</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#生成空白img文件"><span class="toc-number">3.</span> <span class="toc-text">生成空白img文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#确定设备"><span class="toc-number">3.0.1.</span> <span class="toc-text">确定设备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#挂载源SD卡"><span class="toc-number">3.0.2.</span> <span class="toc-text">挂载源SD卡</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建空img文件"><span class="toc-number">3.0.3.</span> <span class="toc-text">创建空img文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#给img文件分区"><span class="toc-number">3.0.4.</span> <span class="toc-text">给img文件分区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#挂载img文件到系统"><span class="toc-number">3.0.5.</span> <span class="toc-text">挂载img文件到系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#给img文件中的两个分区格式化"><span class="toc-number">3.0.6.</span> <span class="toc-text">给img文件中的两个分区格式化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#挂载目标img文件loop-device"><span class="toc-number">3.0.7.</span> <span class="toc-text">挂载目标img文件loop device</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#备份-boot"><span class="toc-number">4.</span> <span class="toc-text">备份&#x2F;boot</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#备份“-”"><span class="toc-number">4.0.1.</span> <span class="toc-text">备份“&#x2F;”</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#方法一、dump-restore方法"><span class="toc-number">4.0.1.0.1.</span> <span class="toc-text">方法一、dump&#x2F;restore方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#方法二、tar方法"><span class="toc-number">4.0.1.0.2.</span> <span class="toc-text">方法二、tar方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#相应修改PARTUUID设定"><span class="toc-number">4.0.2.</span> <span class="toc-text">相应修改PARTUUID设定</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#大功告成"><span class="toc-number">5.</span> <span class="toc-text">大功告成</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#拷贝（移动）镜像"><span class="toc-number">6.</span> <span class="toc-text">拷贝（移动）镜像</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#挂载windows共享磁盘"><span class="toc-number">6.0.1.</span> <span class="toc-text">挂载windows共享磁盘</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#将刚制作的镜像复制到windows上"><span class="toc-number">6.0.2.</span> <span class="toc-text">将刚制作的镜像复制到windows上</span></a></li></ol></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/yilia%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E6%8F%92%E4%BB%B6/" class="archive-article-date">
-  	<time datetime="2018-06-06T06:35:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-06</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/yilia%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E6%8F%92%E4%BB%B6/">yilia主题添加网易云音乐插件</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">静态博客搭建</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/Hexo%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEyilia%E4%B8%BB%E9%A2%98/" class="archive-article-date">
-  	<time datetime="2018-06-06T02:13:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/Hexo%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEyilia%E4%B8%BB%E9%A2%98/">Hexo安装配置yilia主题</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">静态博客搭建</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/hexo+Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/" class="archive-article-date">
-  	<time datetime="2018-06-06T00:18:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/hexo+Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/">hexo+Github搭建个人静态博客</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">静态博客搭建</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/" class="archive-article-date">
-  	<time datetime="2018-06-05T23:18:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-06</time>
-</a>
-        </div>
-    	 
+  <div id="gitment-ctn"></div> 
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: "https://climbsnailq.gitee.io/2019/RaspberryBackup/",
+  owner: 'ClimbSnail',
+  repo: 'Gitment',
+  oauth: {
+    client_id: 'f4b3ff80a25d18d4114d',
+    client_secret: '5be54b4a6b455885f030974b0432a18292f50933',
+  },
+})
+gitment.render('gitment-ctn')
+</script>
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/">Hexo搭建博客系列教程</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">静态博客搭建</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/from_now_on/" class="archive-article-date">
-  	<time datetime="2018-06-05T22:48:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/from_now_on/">大家好，自我介绍一下。</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -473,8 +549,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

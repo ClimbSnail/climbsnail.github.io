@@ -8,21 +8,19 @@
   <meta name="baidu-site-verification" content="Gxxsqpe1yy" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://climbsnail.github.io">
-  <title>安卓系统修改钉钉定位 | ClimbSnail</title>
+  <title>机器学习(之)数据预处理 | ClimbSnail</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="全过程无需root！！！简单介绍以下方法，通过将钉钉内置到虚拟环境中，再使用钉钉助手修改定位信息。 修改定位需要用到以下三款软件。  太极框架。点击下载太极APP 如失效请使用备用链接   钉钉助手。点击下载钉钉助手v1.4.1 如失效请使用备用链接中找到钉钉助手   指定版本的钉钉。点击下载视频配套的钉钉v4.7.16 如失效请使用钉钉v5.0.8链接    注意：钉钉的版本只能使用钉钉助手中">
+  <meta name="description" content="跳转到导航栏">
 <meta property="og:type" content="article">
-<meta property="og:title" content="安卓系统修改钉钉定位">
-<meta property="og:url" content="https://climbsnail.github.io/2020/DingdingPos/index.html">
+<meta property="og:title" content="机器学习(之)数据预处理">
+<meta property="og:url" content="https://climbsnail.github.io/2020/Preprocess_MachineLearning/index.html">
 <meta property="og:site_name" content="ClimbSnail">
-<meta property="og:description" content="全过程无需root！！！简单介绍以下方法，通过将钉钉内置到虚拟环境中，再使用钉钉助手修改定位信息。 修改定位需要用到以下三款软件。  太极框架。点击下载太极APP 如失效请使用备用链接   钉钉助手。点击下载钉钉助手v1.4.1 如失效请使用备用链接中找到钉钉助手   指定版本的钉钉。点击下载视频配套的钉钉v4.7.16 如失效请使用钉钉v5.0.8链接    注意：钉钉的版本只能使用钉钉助手中">
-<meta property="og:image" content="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Note/dingdingd.jpg">
-<meta property="article:published_time" content="2020-06-07T06:12:31.000Z">
-<meta property="article:modified_time" content="2020-06-07T06:12:31.000Z">
+<meta property="og:description" content="跳转到导航栏">
+<meta property="article:published_time" content="2020-10-25T01:23:34.000Z">
+<meta property="article:modified_time" content="2020-10-25T02:59:31.000Z">
 <meta property="article:author" content="ClimbSnail">
-<meta property="article:tag" content="教程">
+<meta property="article:tag" content="AI">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Note/dingdingd.jpg">
   
     <link rel="alternative" href="/atom.xml" title="ClimbSnail" type="application/atom+xml">
   
@@ -174,54 +172,51 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-DingdingPos" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Preprocess_MachineLearning" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      安卓系统修改钉钉定位
+      机器学习(之)数据预处理
     </h1>
   
 
         
-        <a href="/2020/DingdingPos/" class="archive-article-date">
-  	<time datetime="2020-06-07T06:12:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-07</time>
+        <a href="/2020/Preprocess_MachineLearning/" class="archive-article-date">
+  	<time datetime="2020-10-25T01:23:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-25</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><img src="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Note/dingdingd.jpg" alt="钉钉图标"></p>
-<h5 id="全过程无需root！！！"><a href="#全过程无需root！！！" class="headerlink" title="全过程无需root！！！"></a><em>全过程无需root！！！</em></h5><p>简单介绍以下方法，通过将钉钉内置到虚拟环境中，再使用钉钉助手修改定位信息。</p>
-<p>修改定位需要用到以下三款软件。</p>
-<ol>
-<li><a href="https://taichi.cool/zh/" target="_blank" rel="noopener">太极</a>框架。点击下载<a href="https://taichi.cool/zh/download.html" target="_blank" rel="noopener">太极APP</a><blockquote>
-<p>如失效请使用<a href="https://github.com/taichi-framework/TaiChi/releases" target="_blank" rel="noopener">备用链接</a></p>
-</blockquote>
-</li>
-<li>钉钉助手。点击下载<a href="http://climb.dynv6.net:1180/kodexplorer/index.php?user/publicLink&fid=b5a8MYV9xfquo6mMSv0KE-LEz4gWQCL2uKdTJYgrPmFkqouLeyMWJRG0XuvMrceJS3gKc6PkODYkMiIrNWlm0QOFy7rGU3kymKLp1jf7EitI5ZprvGnD4wWqDdmqUiTd8KwiZ43lDUR0a-ubNDZYGHL0J3l3-wL_&file_name=/%E9%92%89%E9%92%89%E5%8A%A9%E6%89%8B_v1.4.1.apk" target="_blank" rel="noopener">钉钉助手v1.4.1</a><blockquote>
-<p>如失效请使用<a href="https://repo.xposed.info/module/com.sky.xposed.rimet" target="_blank" rel="noopener">备用链接</a>中找到<code>钉钉助手</code></p>
-</blockquote>
-</li>
-<li>指定版本的钉钉。点击下载视频配套的<a href="http://climb.dynv6.net:1180/kodexplorer/index.php?user/publicLink&fid=8981pi3gMhvVfUcrogdNE3qxbzLXdApS2Fzrx2nXxmKlXW9E9seQrOTpgfJNmL1QRGLXADgm9QauQDwpmmS8VyUdLSX2HglY163OFtZAmEHuqm7sCvf8STONxurGxzc7jSMKumAUp_CXM0YkmCXWtnLuLw&file_name=/dingding4.7.16.apk" target="_blank" rel="noopener">钉钉v4.7.16</a><blockquote>
-<p>如失效请使用<a href="http://climb.dynv6.net:1180/kodexplorer/index.php?user/publicLink&fid=ae67otBz9WFycVW3BrsLTE6Iu2DdFEX5msZViGGjoX42PMhorM0X47mbibCkeyC1EBoGMxFRIk9VE9RcopEU0_FKikWIPhcZwII3DQGQBvKpdAo_PwPH6S271AAzdGPXstNdvhOwk8XSDnrgNCbCKjo&file_name=/%E9%92%89%E9%92%89v5.0.8.apk" target="_blank" rel="noopener">钉钉v5.0.8链接</a></p>
-</blockquote>
-</li>
+        <p><a href="../DeepLearningMain">跳转到导航栏</a></p>
+<a id="more"></a>
+
+<h3 id="数据处理"><a href="#数据处理" class="headerlink" title="数据处理"></a>数据处理</h3><ol>
+<li>数值型数据：标准缩放<ol>
+<li><em>归一化</em></li>
+<li><em>标准化</em></li>
+<li><em>缺失值</em></li>
 </ol>
-<p>注意：<code>钉钉</code>的版本只能使用<code>钉钉助手</code>中说明的适配版本。</p>
-<h5 id="具体教程请观看视频"><a href="#具体教程请观看视频" class="headerlink" title="具体教程请观看视频"></a>具体教程请观看视频</h5><iframe
-    src="//player.bilibili.com/player.html?aid=456174494&bvid=BV1n5411Y7XT&cid=209113398&page=1"
-    scrolling="no"
-    width="800px"
-    height="600px"
-    border="0"
-    frameborder="no"
-    framespacing="0"
-    allowfullscreen="true"> 
-</iframe>
+</li>
+<li>类别型数据：<em>one-hot编码</em></li>
+<li>时间类型：<em>时间的切分</em></li>
+</ol>
+<h5 id="一、数据的归一化处理"><a href="#一、数据的归一化处理" class="headerlink" title="一、数据的归一化处理"></a>一、数据的归一化处理</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">特点：通过对原始数据进行变化，把数据映射到[0,1](默认)之间，可以让不同类别特征值之间达到&quot;平衡&quot;,数值操作的时候达到同等重要的作用。</span><br><span class="line">公式：x1 &#x3D; (x-min)&#x2F;(max-min)   x2 &#x3D; x1*(max-min)+min</span><br><span class="line">注：作用于每一列，max为一列的最大值，min为一列的最小值</span><br><span class="line"></span><br><span class="line">归一化API sklearn.preprocessing.MinMaxScaler</span><br><span class="line">from sklearn.preprocessing.MinMaxScaler import MinMaxScaler</span><br><span class="line">MinMaxScaler(feature_range&#x3D;(0,1), ...)</span><br><span class="line">MinMaxScaler.fit_transform(x)</span><br><span class="line">    x: numpy array格式的数据[n_samples, n_features]</span><br><span class="line">    返回值：转换后，形状相同的array</span><br></pre></td></tr></table></figure>
+<h5 id="二、数据的标准化（常用）"><a href="#二、数据的标准化（常用）" class="headerlink" title="二、数据的标准化（常用）"></a>二、数据的标准化（常用）</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">标准化可以减少错误数据对最终结果的影响</span><br><span class="line">公式：x1 = (x-mean)/标准差，mean为平均值 </span><br><span class="line">方差：var = [(x1-mean)^<span class="number">2</span>+(x2-mean)^<span class="number">2</span>+....]/样本个数N。方差体现数据的稳定性。</span><br><span class="line">标准差：var^(<span class="number">1</span>/<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<h5 id="三、有缺失值处理"><a href="#三、有缺失值处理" class="headerlink" title="三、有缺失值处理"></a>三、有缺失值处理</h5><p>数据中有缺失值时，有时候考虑到数据集本身少，尽量避免删除数据，所以对缺少值进行人为添加值，一般使用改特征的平均数或中位数进行覆盖。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">im</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    缺失值处理</span></span><br><span class="line"><span class="string">    return None</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    im = Impoter(missing_values=<span class="string">'NaN'</span>, strategy=<span class="string">'mean'</span>, axis=<span class="number">0</span>)</span><br><span class="line">    data = im.fit_transform([[<span class="number">1</span>,<span class="number">2</span>], [np.nan,<span class="number">3</span>], [<span class="number">7</span>,<span class="number">6</span>]])</span><br><span class="line">    print(data)</span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    输出</span></span><br><span class="line"><span class="string">    [[1, 2]</span></span><br><span class="line"><span class="string">     [4, 3]</span></span><br><span class="line"><span class="string">     [7, 6]]</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span></span><br></pre></td></tr></table></figure>
+<p>降维：使对结果不重要的特征尽可能不影响结果（将该特征删除，维度只的是特征个数）</p>
+<p>降维主要方法：</p>
+<ol>
+<li>Filter过略式 VarianceThreshold</li>
+<li>Embedded嵌入式 正则化、决策树</li>
+<li>Wrapper包裹式<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">var</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    特征选择 删除低方差的特征</span></span><br><span class="line"><span class="string">    return None</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    var = VarianceThreshold(threshold=<span class="number">1.0</span>)  <span class="comment"># 删除方差小于1的</span></span><br><span class="line">    data = var.fit_transform([[<span class="number">0</span>,<span class="number">2</span>,<span class="number">0</span>,<span class="number">3</span>], [<span class="number">0</span>,<span class="number">1</span>,<span class="number">4</span>,<span class="number">3</span>], [<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">3</span>]])</span><br><span class="line">    print(data)</span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    [[2, 0]</span></span><br><span class="line"><span class="string">     [1, 4]</span></span><br><span class="line"><span class="string">     [1,1]]</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+
       
 
       
@@ -265,7 +260,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">教程</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">AI</a>
         		</li>
       		
 		</ul>
@@ -321,7 +316,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://climbsnail.github.io/2020/DingdingPos/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://climbsnail.github.io/2020/Preprocess_MachineLearning/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -335,18 +330,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/OrangePi_Zero_Plus_CPU_Fre/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/Feature_MachineLearning/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          香橙派 OrangePi Zero plus主频1.3Ghz启动失败
+          机器学习(之)特征工程
         
       </div>
     </a>
   
   
-    <a href="/2020/UseFor_Gitee_PicGo/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Gitee免费图床搭建以及PicGo的使用</div>
+    <a href="/2020/Background_MachineLearning/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">认识人工智能</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -373,7 +368,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#全过程无需root！！！"><span class="toc-number">1.</span> <span class="toc-text">全过程无需root！！！</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#具体教程请观看视频"><span class="toc-number">2.</span> <span class="toc-text">具体教程请观看视频</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#数据处理"><span class="toc-number">1.</span> <span class="toc-text">数据处理</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#一、数据的归一化处理"><span class="toc-number">1.0.1.</span> <span class="toc-text">一、数据的归一化处理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#二、数据的标准化（常用）"><span class="toc-number">1.0.2.</span> <span class="toc-text">二、数据的标准化（常用）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#三、有缺失值处理"><span class="toc-number">1.0.3.</span> <span class="toc-text">三、有缺失值处理</span></a></li></ol></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -398,7 +393,7 @@
 <script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 var gitment = new Gitment({
-  id: "https://climbsnail.github.io/2020/DingdingPos/",
+  id: "https://climbsnail.github.io/2020/Preprocess_MachineLearning/",
   owner: 'ClimbSnail',
   repo: 'Gitment',
   oauth: {

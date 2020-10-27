@@ -7,13 +7,13 @@
   <meta name="google-site-verification" content="6ntAe3Qr2-4UmIEqRviFXQQI0ykka-AbVNVHPP1THow" />
   <meta name="baidu-site-verification" content="Gxxsqpe1yy" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <link rel="dns-prefetch" href="https://climbsnailq.gitee.io">
+  <link rel="dns-prefetch" href="https://climbsnail.github.io">
   <title>ClimbSnail</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="蜗牛给自己造了个火箭">
 <meta property="og:type" content="website">
 <meta property="og:title" content="ClimbSnail">
-<meta property="og:url" content="https://climbsnailq.gitee.io/page/2/index.html">
+<meta property="og:url" content="https://climbsnail.github.io/page/2/index.html">
 <meta property="og:site_name" content="ClimbSnail">
 <meta property="og:description" content="蜗牛给自己造了个火箭">
 <meta property="article:author" content="ClimbSnail">
@@ -171,6 +171,80 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-树莓派测试SPI接口" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/%E6%A0%91%E8%8E%93%E6%B4%BE%E6%B5%8B%E8%AF%95SPI%E6%8E%A5%E5%8F%A3/">树莓派测试SPI接口</a>
+    </h1>
+  
+
+        
+        <a href="/2019/%E6%A0%91%E8%8E%93%E6%B4%BE%E6%B5%8B%E8%AF%95SPI%E6%8E%A5%E5%8F%A3/" class="archive-article-date">
+  	<time datetime="2019-04-07T15:27:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment"> * SPI testing utility (using spidev driver) </span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * Copyright (c) 2007  MontaVista Software, Inc. </span></span><br><span class="line"><span class="comment"> * Copyright (c) 2007  Anton Vorontsov &lt;avorontsov@ru.mvista.com&gt; </span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * This program is free software; you can redistribute it and/or modify </span></span><br><span class="line"><span class="comment"> * it under the terms of the GNU General Public License as published by </span></span><br><span class="line"><span class="comment"> * the Free Software Foundation; either version 2 of the License. </span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * Cross-compile with cross-gcc -I/path/to/cross-kernel/include </span></span><br><span class="line"><span class="comment"> */</span>  </span><br><span class="line">  </span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdint.h&gt;  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;getopt.h&gt;  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/ioctl.h&gt;  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/types.h&gt;  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/spi/spidev.h&gt;  </span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ARRAY_SIZE(a) (sizeof(a)/sizeof((a)[0]))  </span></span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">pabort</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *s)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    perror(s);  </span><br><span class="line">    <span class="built_in">abort</span>();  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">教程</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/%E6%A0%91%E8%8E%93%E6%B4%BE%E6%B5%8B%E8%AF%95SPI%E6%8E%A5%E5%8F%A3/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-RaspberryBackup" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -600,7 +674,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>最后的效果可参考<a href="https://climbsnail.github.io" target="_blank" rel="noopener">本人博客</a><br><img src="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Note/blog.jpg" alt="hexo静态博客"></p>
+        <p>最后的效果可参考<a href="https://climbsnail.github.io">本人博客</a><br><img src="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Note/blog.jpg" alt="hexo静态博客"></p>
 <h2 id="高级玩法之更换hexo主题"><a href="#高级玩法之更换hexo主题" class="headerlink" title="高级玩法之更换hexo主题"></a>高级玩法之更换hexo主题</h2><h5 id="使用hexo-theme-yilia主题"><a href="#使用hexo-theme-yilia主题" class="headerlink" title="使用hexo-theme-yilia主题"></a>使用hexo-theme-yilia主题</h5><ol>
 <li>在命令行中确保在本博客的根目录下，输入以下命令。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/litten/hexo-theme-yilia.git themes/yilia</span><br><span class="line"><span class="comment"># 注：themes/yilia意为将本次下载下来的yilia主题放在themes目录下</span></span><br></pre></td></tr></table></figure></li>
 <li>修改本博客根目录的<code>_config.yml</code>文件中的<code>theme</code>字段的参数，更改为<code>yilia</code>。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">theme: yilia</span><br></pre></td></tr></table></figure></li>
@@ -681,7 +755,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>最后的效果可参考<a href="https://climbsnail.github.io" target="_blank" rel="noopener">本人博客</a><br><img src="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Note/blog.jpg" alt="hexo静态博客"></p>
+        <p>最后的效果可参考<a href="https://climbsnail.github.io">本人博客</a><br><img src="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Note/blog.jpg" alt="hexo静态博客"></p>
 <h2 id="概要介绍"><a href="#概要介绍" class="headerlink" title="概要介绍"></a>概要介绍</h2><p>本文主要使用hexo搭建静态博客，并使用Github作为挂载点。</p>
 <h5 id="Hexo简介"><a href="#Hexo简介" class="headerlink" title="Hexo简介"></a>Hexo简介</h5><p>Hexo是一款基于Node.js的静态博客框架，依赖少易于安装使用，可以方便的生成静态网页托管在GitHub和Coding上，是搭建博客的首选框架。大家可以进入hexo官网进行详细查看，因为Hexo的创建者是台湾人，对中文的支持很友好，可以选择中文进行查看。</p>
 <h5 id="Github简介"><a href="#Github简介" class="headerlink" title="Github简介"></a>Github简介</h5><p>Github是一个面向开源及私有软件项目的托管平台,因为只支持 Git 作为唯一的版本库格式进行托管,故名 GitHub。</p>
@@ -773,7 +847,7 @@
 <li>Hexo搭建博客系列教程4__<a href="../yilia主题添加Gitment评论插件题">yilia主题添加Gitment评论插件</a></li>
 <li>Hexo搭建博客系列教程5__<a href="../让搜索引擎收录博客">让搜索引擎收录博客</a></li>
 </ol>
-<p>最后的效果可参考<a href="https://climbsnail.github.io" target="_blank" rel="noopener">本人博客</a><br><img src="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Note/blog.jpg" alt="hexo静态博客"></p>
+<p>最后的效果可参考<a href="https://climbsnail.github.io">本人博客</a><br><img src="https://gitee.com/ClimbSnailQ/Project_Image/raw/master/Note/blog.jpg" alt="hexo静态博客"></p>
 
       
 

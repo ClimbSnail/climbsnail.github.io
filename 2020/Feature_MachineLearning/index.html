@@ -7,13 +7,13 @@
   <meta name="google-site-verification" content="6ntAe3Qr2-4UmIEqRviFXQQI0ykka-AbVNVHPP1THow" />
   <meta name="baidu-site-verification" content="Gxxsqpe1yy" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <link rel="dns-prefetch" href="https://climbsnail.github.io">
+  <link rel="dns-prefetch" href="https://climbsnailq.gitee.io">
   <title>机器学习(之)特征工程 | ClimbSnail</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="跳转到导航栏">
 <meta property="og:type" content="article">
 <meta property="og:title" content="机器学习(之)特征工程">
-<meta property="og:url" content="https://climbsnail.github.io/2020/Feature_MachineLearning/index.html">
+<meta property="og:url" content="https://climbsnailq.gitee.io/2020/Feature_MachineLearning/index.html">
 <meta property="og:site_name" content="ClimbSnail">
 <meta property="og:description" content="跳转到导航栏">
 <meta property="article:published_time" content="2020-10-25T03:51:04.000Z">
@@ -202,6 +202,15 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.feature_extraction.text <span class="keyword">import</span> CountVectorizer</span><br><span class="line"></span><br><span class="line"><span class="comment"># fit(数据)输入数据 计算平均值 方差等</span></span><br><span class="line"><span class="comment"># fit_transform(数据) = fit(数据) + transform(数据)进行数据转换</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">countvec</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    对文本进行特征值化</span></span><br><span class="line"><span class="string">    :return: None</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    cv = CountVectorizer()</span><br><span class="line">    <span class="comment"># 统计所有文章当中所有的词，相当于set</span></span><br><span class="line">    data = cv.fit_transform( [<span class="string">"life is short, i like python"</span>,</span><br><span class="line">                    <span class="string">"life is too long, i dislike python"</span>] )</span><br><span class="line">    <span class="comment"># 对每篇文章，在词的列表里面进行统计每个词出现的次数</span></span><br><span class="line">    <span class="comment"># 单个字母不统计，因为单个字母表达不了一个意思。</span></span><br><span class="line">    print( cv.get_feature_names())</span><br><span class="line">    print( data.toarray() )</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">输出 &gt;&gt;&gt;</span><br><span class="line">[<span class="string">'dislike'</span>, <span class="string">'is'</span>, <span class="string">'life'</span>, <span class="string">'like'</span>, <span class="string">'long'</span>, <span class="string">'python'</span>, <span class="string">'short'</span>, <span class="string">'too'</span>]</span><br><span class="line">[[<span class="number">0</span> <span class="number">1</span> <span class="number">1</span> <span class="number">1</span> <span class="number">0</span> <span class="number">1</span> <span class="number">1</span> <span class="number">0</span>]</span><br><span class="line"> [<span class="number">1</span> <span class="number">1</span> <span class="number">1</span> <span class="number">0</span> <span class="number">1</span> <span class="number">1</span> <span class="number">0</span> <span class="number">1</span>]]</span><br></pre></td></tr></table></figure>
 <p>TF-IDF </p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">TF：term frequency 词的频率</span><br><span class="line">IDF：逆文档频率 inverse document frequency</span><br><span class="line"></span><br><span class="line">一个词的IDF = log(文档的总数/出现该词的文档数量)</span><br><span class="line">一个词的重要（区分度）TF*IDF</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<p><a href="../DeepLearningMain">跳转到导航栏</a></p>
+
       
 
       
@@ -301,7 +310,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://climbsnail.github.io/2020/Feature_MachineLearning/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://climbsnailq.gitee.io/2020/Feature_MachineLearning/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -314,6 +323,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2020/Algorithm_MachineLearning/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          机器学习(之)常见算法
+        
+      </div>
+    </a>
   
   
     <a href="/2020/Preprocess_MachineLearning/" id="article-nav-older" class="article-nav-link-wrap">
@@ -369,7 +387,7 @@
 <script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 var gitment = new Gitment({
-  id: "https://climbsnail.github.io/2020/Feature_MachineLearning/",
+  id: "https://climbsnailq.gitee.io/2020/Feature_MachineLearning/",
   owner: 'ClimbSnail',
   repo: 'Gitment',
   oauth: {
@@ -479,11 +497,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color2">静态博客搭建</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">静态博客搭建</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
